@@ -10,17 +10,18 @@
   position: relative;
   width: 100%;
   min-width: 0;
-  min-height: 540px;
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: 0 8px 40px rgb(23 45 68 / 8%);
+  /* Cal owns its card, border and adaptive height. A second white card here
+     made the embed look boxed twice and left space below shorter screens. */
+  min-height: 570px;
+}
+
+.calendar[data-calendar-status='ready'] .frame {
+  min-height: 0;
 }
 
 .embed {
   width: 100%;
   min-width: 0;
-  overflow: hidden;
-  border-radius: inherit;
   opacity: 0;
   pointer-events: none;
 }
@@ -54,8 +55,8 @@
   margin: 0;
 }
 
-.failed {
-  min-height: 540px;
+.frame.failed {
+  min-height: 240px;
 }
 
 .failed .embed {
@@ -87,11 +88,6 @@
 
 @media (max-width: 767px) {
   .frame {
-    min-height: 680px;
-    border-radius: 8px;
-  }
-
-  .failed {
     min-height: 680px;
   }
 

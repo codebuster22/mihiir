@@ -114,6 +114,10 @@
   font-size: 20px;
   line-height: 30px;
 }
+.writingIntro > a,
+.featuredLog > a {
+  margin-top: auto;
+}
 @media (max-width: 1150px) {
   .highlight {
     grid-template-columns: 240px minmax(0, 1fr);
@@ -202,5 +206,9 @@
   .featuredLog p {
     font-size: 17px;
     line-height: 25px;
+  }
+  .writingIntro > a,
+  .featuredLog > a {
+    margin-top: 0;
   }
 }

@@ -21,12 +21,6 @@ const assets = [
     3840,
   ],
   [
-    'mountain-panorama',
-    'panorama-expanded-v2.webp',
-    'panorama-glyphs-v2',
-    3840,
-  ],
-  [
     'mountaineering-mobile',
     'mountaineering-mobile-study.png',
     'sar-pass-mobile-glyphs-v2',

@@ -168,19 +168,19 @@ export function HomeHero() {
           <source
             media="(max-width: 760px)"
             type="image/avif"
-            srcSet="/artwork/sar-pass-mobile-glyphs-v2.avif"
+            srcSet="/artwork/sar-pass-mobile-print-v3.avif"
           />
           <source
             media="(max-width: 760px)"
-            srcSet="/artwork/sar-pass-mobile-glyphs-v2.webp"
+            srcSet="/artwork/sar-pass-mobile-print-v3.webp"
           />
           <source
             type="image/avif"
-            srcSet="/artwork/sar-pass-wide-glyphs-v2.avif"
+            srcSet="/artwork/sar-pass-wide-print-v3.avif"
           />
           <img
             ref={photo}
-            src="/artwork/sar-pass-wide-glyphs-v2.webp"
+            src="/artwork/sar-pass-wide-print-v3.webp"
             width="3840"
             height="1447"
             fetchPriority="high"

@@ -38,15 +38,15 @@ export const photos = [
   },
 ] as const;
 
-// Chosen by Mihiir on 10 September 2026. Both Sar Pass framings share one treatment.
+// Final hero treatment chosen by Mihiir on 11 September 2026, shared across framings.
 export const chosenPrintSettings: Record<string, FilterSettings> = {
   mountaineering: {
     size: 5,
-    noise: 70,
-    softness: 75,
-    grain: 50,
-    color: 80,
-    strength: 75,
+    noise: 20,
+    softness: 100,
+    grain: 20,
+    color: 100,
+    strength: 50,
     contrast: 100,
     type: 'ink',
   },
@@ -87,7 +87,8 @@ export function photoDefaults(
     ...defaults,
     glyphs: {
       ...defaults.glyphs,
-      strength: photoId === 'mountain-panorama' ? 45 : 55,
+      // Mihiir chose the unfiltered panorama for the footer on 11 September.
+      strength: photoId === 'mountain-panorama' ? 0 : 55,
     },
     print: chosenPrintSettings[treatmentKey(photoId)] ?? defaults.print,
   };

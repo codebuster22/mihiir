@@ -4,15 +4,17 @@
 
 The wide hero uses an expanded version of Mihiir's Sar Pass photograph. The footer uses an expanded version of his mountain panorama. The image-generation tool extended the scenery; these are interpretations of the original photographs, not untouched documentary originals. Source originals remain in the adjacent ImageAssets archive. The mobile framing retains the earlier expanded portrait master.
 
-The new generated photographic masters are 2043×770 (hero) and 2048×768 (footer). The glyph layer is rendered separately at 3840px width for desktop delivery and 1536px for mobile. This higher delivery resolution preserves glyph edges; it is not a claim that the model generated native 4K photographic detail.
+The generated photographic masters are 2043×770 (hero) and 2048×768 (footer). The final print layer is rendered separately at 3840px width for desktop delivery and 1536px for mobile. This higher delivery resolution preserves the print texture; it is not a claim that the model generated native 4K photographic detail.
 
-Versioned source files live in `public/images/*-expanded-v2.webp`. Delivery files live in `public/artwork/*-glyphs-v2.avif` and `.webp`. Earlier artwork remains available for comparison. The local PNG masters are in `docs/design/artwork-v2`.
+Versioned source files live in `public/images/*-expanded-v2.webp`. Hero delivery files are `public/artwork/sar-pass-wide-print-v3.avif` / `.webp` and `sar-pass-mobile-print-v3.avif` / `.webp`. Earlier artwork remains available for comparison. Photographic masters are in `docs/design/artwork-v2`; final print exports and their settings are in `docs/design/artwork-v3`.
 
-## Reproduce and tune
+## Final treatment and reproduction
 
-`lib/image-lab.ts` defines the current glyph defaults: size 0, grid noise 3, softness 12, grain 2, color 100 and contrast 100. Hero/mobile filter amount is 55; panorama is 45. These replace the much heavier CMYK print treatment on the site. The old print presets are retained in the image lab.
+Mihiir's final hero/mobile choice on 11 September is **Print / ink**: size 5, grid noise 20, softness 100, grain 20, color 100, filter amount 50 and contrast 100. The footer uses the unfiltered expanded panorama at `/images/panorama-expanded-v2.webp`, with its existing layout fade. These supersede the preceding glyph selection.
 
-Use `/design-lab` to adjust the images, compare the original with the treatment, copy settings or export a PNG. Run `node scripts/render-glyph-artwork.mjs` to regenerate the site's AVIF/WebP files from the current settings. Glyph exports are rendered from the source at delivery resolution rather than enlarged from the small interactive preview.
+Run `node scripts/render-print-artwork.mjs` to reproduce the final hero AVIF/WebP files. It reads `chosenPrintSettings.mountaineering` from `lib/image-lab.ts`, renders the installed Paper CMYK shader with the same uniforms as the approved preview, and blends it 50% over the unfiltered source. Rendering uses the full proportional image at delivery resolution. The footer is served directly from its source WebP.
+
+The `/design-lab` route and the floating homepage image controls have been removed at Mihiir's request. The website serves the final static artwork without a shader or image-editing UI. The shader package is a development dependency for reproducible exports only.
 
 ## Image generation prompts
 

@@ -15,29 +15,52 @@ export function BookingCalendar() {
   const shell = useRef<HTMLDivElement>(null);
   const host = useRef<HTMLDivElement>(null);
   const namespace = `mihiir-footer-${useId().replace(/[^a-zA-Z0-9]/g, '')}`;
-  const [nearViewport, setNearViewport] = useState(false);
+  const [shouldLoad, setShouldLoad] = useState(false);
   const [status, setStatus] = useState<Status>('waiting');
   const calLink = getCalBookingLink(site.booking);
 
   useEffect(() => {
     const element = shell.current;
     if (!calLink || !element) return;
+    let idle: number | undefined;
+    let started = false;
+    const start = () => {
+      if (started) return;
+      started = true;
+      setShouldLoad(true);
+      observer.disconnect();
+      window.clearTimeout(fallback);
+    };
+    const afterPageLoad = () => {
+      if ('requestIdleCallback' in window) {
+        idle = window.requestIdleCallback(start, { timeout: 500 });
+      } else {
+        start();
+      }
+    };
+    // Warm the real inline calendar while the visitor is reading the page.
+    // A quick scroll or direct footer link starts it immediately instead.
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setNearViewport(true);
-          observer.disconnect();
-        }
+        if (entry.isIntersecting) start();
       },
-      { rootMargin: '300px 0px' },
+      { rootMargin: '1000px 0px' },
     );
+    const fallback = window.setTimeout(start, 1500);
     observer.observe(element);
-    return () => observer.disconnect();
+    if (document.readyState === 'complete') afterPageLoad();
+    else window.addEventListener('load', afterPageLoad, { once: true });
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(fallback);
+      window.removeEventListener('load', afterPageLoad);
+      if (idle !== undefined) window.cancelIdleCallback(idle);
+    };
   }, [calLink]);
 
   useEffect(() => {
     const element = host.current;
-    if (!nearViewport || !calLink || !element) return;
+    if (!shouldLoad || !calLink || !element) return;
 
     let disposed = false;
     let api: CalendarApi | undefined;
@@ -54,10 +77,21 @@ export function BookingCalendar() {
       window.clearTimeout(timeout);
       setStatus('failed');
     };
-    const timeout = window.setTimeout(failed, 25_000);
+    const timeout = window.setTimeout(failed, 30_000);
+    const isEventLink = calLink.split('?')[0].includes('/');
+    const onCalendarEvent = (event: CustomEvent<{ type: string }>) => {
+      // linkReady precedes availability by hundreds of milliseconds. Cal's
+      // public bookerReady event means dates and slots are actually usable.
+      // Profile / event-list URLs do not have a booker until a link is chosen.
+      if (
+        event.detail.type === 'bookerReady' ||
+        (event.detail.type === 'linkReady' && !isEventLink)
+      ) {
+        ready();
+      }
+    };
 
-    // Both the package and Cal's network requests wait until the footer is near.
-    // Register events before mounting so a fast iframe cannot miss linkReady.
+    // Register before mounting so a cached iframe cannot miss its ready event.
     async function mountCalendar(element: HTMLDivElement, calLink: string) {
       try {
         setStatus('loading');
@@ -65,12 +99,15 @@ export function BookingCalendar() {
         if (disposed) return;
         api = await getCalApi({ namespace });
         if (disposed) return;
-        api('on', { action: 'linkReady', callback: ready });
+        // The package's event union predates bookerReady; the documented wildcard
+        // subscription supports new public events without using internal ones.
+        api('on', { action: '*', callback: onCalendarEvent });
         api('on', { action: 'linkFailed', callback: failed });
         api('ui', {
           theme: 'light',
           layout: 'month_view',
           hideEventTypeDetails: false,
+          styles: { body: { background: 'transparent' } },
           cssVarsPerTheme: {
             light: {
               'cal-brand': '#255bd6',
@@ -103,11 +140,11 @@ export function BookingCalendar() {
     return () => {
       disposed = true;
       window.clearTimeout(timeout);
-      api?.('off', { action: 'linkReady', callback: ready });
+      api?.('off', { action: '*', callback: onCalendarEvent });
       api?.('off', { action: 'linkFailed', callback: failed });
       element.replaceChildren();
     };
-  }, [nearViewport, calLink, namespace]);
+  }, [shouldLoad, calLink, namespace]);
 
   if (!calLink) {
     return (
@@ -127,7 +164,7 @@ export function BookingCalendar() {
       <div
         className={`${styles.frame} ${status === 'failed' ? styles.failed : ''}`}
         aria-label="Project conversation calendar"
-        aria-busy={status === 'loading'}
+        aria-busy={status === 'waiting' || status === 'loading'}
       >
         {status !== 'ready' && (
           <output className={styles.status}>

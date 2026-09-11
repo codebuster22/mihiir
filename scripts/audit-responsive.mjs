@@ -77,6 +77,7 @@ async function inspect(route, width, height) {
       hero: rect(hero),
       footer: rect(document.querySelector('footer')),
       heading: rect(document.querySelector('h1')),
+      header: rect(document.querySelector('header')),
       figure: rect(
         document.querySelector(
           '[aria-label="The story behind this photograph"]',
@@ -104,6 +105,18 @@ async function inspect(route, width, height) {
     `${route} footer is not full width at ${width}`,
   );
   if (route === '/') {
+    assert.ok(
+      record.heading.left >= 23,
+      `Hero copy loses its gutter at ${width}`,
+    );
+    assert.ok(
+      record.header.width <= 1121,
+      `Navigation is not bounded at ${width}`,
+    );
+    assert.ok(
+      Math.abs(record.header.left - (width - record.header.width) / 2) < 1,
+      `Navigation is not centered at ${width}`,
+    );
     assert.equal(
       Math.round(record.hero.width),
       width,
@@ -226,6 +239,26 @@ try {
     'none',
   );
   await page.emulateMediaFeatures([]);
+
+  // Reproduce the missing shared width observed in the user's live browser.
+  // The critical hero and nav layout must retain its own dimensions.
+  await inspect('/', 3440, 1340);
+  await page.evaluate(() => {
+    document.documentElement.style.setProperty('--page-width', 'initial');
+    document.body.style.setProperty('--page-width', 'initial');
+  });
+  const fallback = await page.evaluate(() => ({
+    copy: document.querySelector('h1').getBoundingClientRect().left,
+    nav: document.querySelector('header').getBoundingClientRect().width,
+    pill: document
+      .querySelector('[aria-label="17,000 feet. About this photograph"]')
+      .getBoundingClientRect().right,
+    overflow: document.documentElement.scrollWidth > innerWidth,
+  }));
+  assert.ok(fallback.copy >= 900);
+  assert.equal(fallback.nav, 1120);
+  assert.ok(fallback.pill > 3300 && fallback.pill < 3440);
+  assert.equal(fallback.overflow, false);
 
   // Capture the complete revised footer after loading actual availability.
   for (const [width, height] of [

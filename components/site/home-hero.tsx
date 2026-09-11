@@ -65,7 +65,7 @@ export function HomeHero() {
       const mobile = window.matchMedia('(max-width: 760px)').matches;
       const source = mobile
         ? { w: 1122, h: 1402, x: 878, y: 843, bw: 72, bh: 118 }
-        : { w: 1956, h: 1227, x: 1516, y: 762, bw: 136, bh: 196 };
+        : { w: 3840, h: 1447, x: 2865, y: 909, bw: 138, bh: 214 };
       const scale = Math.max(
         imageRect.width / source.w,
         imageRect.height / source.h,
@@ -168,21 +168,21 @@ export function HomeHero() {
           <source
             media="(max-width: 760px)"
             type="image/avif"
-            srcSet="/artwork/mountaineering-mobile-print-q85.avif"
+            srcSet="/artwork/sar-pass-mobile-glyphs-v2.avif"
           />
           <source
             media="(max-width: 760px)"
-            srcSet="/artwork/mountaineering-mobile-print.webp"
+            srcSet="/artwork/sar-pass-mobile-glyphs-v2.webp"
           />
           <source
             type="image/avif"
-            srcSet="/artwork/mountaineering-print-q85.avif"
+            srcSet="/artwork/sar-pass-wide-glyphs-v2.avif"
           />
           <img
             ref={photo}
-            src="/artwork/mountaineering-print.webp"
-            width="1956"
-            height="1227"
+            src="/artwork/sar-pass-wide-glyphs-v2.webp"
+            width="3840"
+            height="1447"
             fetchPriority="high"
             alt="Mihiir jumping above the snowy slopes on the Sar Pass trek."
             className={styles.photo}
@@ -245,26 +245,28 @@ export function HomeHero() {
           </section>
         </div>
       )}
-      <div className={styles.copy} id="main-content" tabIndex={-1}>
-        <h1 id="home-title">
-          I build products and systems for Web3 and Prediction Markets.
-        </h1>
-        <div className={styles.bodyGroup}>
-          <p>
-            I&apos;m Mihiir. I take responsibility for getting the product
-            built: working through the architecture, writing the core systems
-            and leading the engineers. I can own the whole build or join your
-            team to deliver a specific part.
-          </p>
-          <div className={styles.actions}>
-            <BookingLink />
-            <Link
-              href="/work"
-              className={styles.workLink}
-              data-analytics-event="work_cta_click"
-            >
-              Explore my work
-            </Link>
+      <div className={styles.content}>
+        <div className={styles.copy} id="main-content" tabIndex={-1}>
+          <h1 id="home-title">
+            I build products and systems for Web3 and Prediction Markets.
+          </h1>
+          <div className={styles.bodyGroup}>
+            <p>
+              I&apos;m Mihiir. I take responsibility for getting the product
+              built: working through the architecture, writing the core systems
+              and leading the engineers. I can own the whole build or join your
+              team to deliver a specific part.
+            </p>
+            <div className={styles.actions}>
+              <BookingLink />
+              <Link
+                href="/work"
+                className={styles.workLink}
+                data-analytics-event="work_cta_click"
+              >
+                Explore my work
+              </Link>
+            </div>
           </div>
         </div>
       </div>

@@ -15,7 +15,7 @@
 .privacy {
   position: relative;
   width: 100%;
-  max-width: calc(var(--page-width) - 2 * var(--gutter));
+  max-width: calc(var(--page-width, 1760px) - 2 * var(--gutter, 24px));
   margin-inline: auto;
 }
 .composition {

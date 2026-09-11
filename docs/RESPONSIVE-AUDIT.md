@@ -1,5 +1,11 @@
 # Responsive layout audit — 11 September 2026
 
+## Follow-up after testing the user's live browser
+
+The live browser had no computed `--page-width` value. This invalidated the hero's calculated padding and placed the copy at x=0. The hero now has a self-contained centered content container and direct responsive gutters. The navigation is a centered, 1120px maximum-width bar, and remaining shared-width uses have fallbacks. The audit now requires a positive hero gutter, bounded centered navigation, and repeats the wide layout with the shared width explicitly unset.
+
+The photographs now use expanded scenery and a finer colored glyph treatment. See `ARTWORK.md` for source provenance, exact generation prompts, dimensions and reproduction. The follow-up matrix includes 270 route/viewport checks, including the missing-width regression. The original audit below records the first responsiveness pass.
+
 The deployed home page put its hero, logo strip and landscape footer inside a 1440px artboard. At a 3440px viewport this left large white bands around the photographs. The hero also stopped growing at 903px tall. These outer limits have been removed: Home's imagery and logo strip are full width, while normal reading content uses a separate centered container. No page scaling or global overflow masking is used to make the checks pass.
 
 ## Corrections

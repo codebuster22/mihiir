@@ -13,10 +13,10 @@ export function SiteFooter({ landscape = false }: { landscape?: boolean }) {
           <picture className={styles.panorama}>
             <source
               type="image/avif"
-              srcSet="/artwork/panorama-print-q85.avif"
+              srcSet="/artwork/panorama-glyphs-v2.avif"
             />
             <img
-              src="/artwork/panorama-print.webp"
+              src="/artwork/panorama-glyphs-v2.webp"
               alt=""
               loading="lazy"
               decoding="async"

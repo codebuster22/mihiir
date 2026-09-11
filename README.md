@@ -52,7 +52,7 @@ The repository includes the website, prepared public assets, approved image mast
 
 ## Images and interaction
 
-The approved print exports remain in `docs/design`. Browser delivery uses AVIF quality 85 with full chroma and the lossless WebP reference as a fallback; this preserves the selected framing and filter treatment, but AVIF is not pixel-identical. Footer artwork loads near its viewport instead of competing with the hero. `scripts/prepare-site-assets.mjs` regenerates delivery assets from the approved masters.
+The current artwork uses expanded mountain scenery and fine colored glyphs. Desktop glyphs are rendered at 3840px width; mobile uses a separate portrait frame. Delivery uses AVIF with a WebP fallback, and footer artwork loads lazily. `/design-lab` contains the new photos, controls and PNG exports. `scripts/render-glyph-artwork.mjs` regenerates these assets; [artwork notes](docs/ARTWORK.md) record the source dimensions, model-edit prompts and settings. Earlier print exports remain in `docs/design` for comparison.
 
 The original Plex fonts are delivered as WOFF2. Their glyphs and measured text geometry are unchanged; `scripts/prepare-fonts.py` can regenerate them using Python FontTools and Brotli. Neither Python nor the video runtime is required to build or deploy the website because the generated font/image assets are included.
 

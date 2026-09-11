@@ -15,17 +15,17 @@ export const photos = [
   {
     id: 'mountaineering',
     name: 'Mountaineering days',
-    src: '/images/mountaineering.webp',
-    width: 1500,
-    height: 941,
+    src: '/images/mountaineering-expanded-v2.webp',
+    width: 2043,
+    height: 770,
     alt: 'Mihiir jumping on an open snowy mountainside surrounded by dark rocks.',
   },
   {
     id: 'mountain-panorama',
     name: 'A wider perspective',
-    src: '/images/mountain-panorama.webp',
-    width: 2200,
-    height: 585,
+    src: '/images/panorama-expanded-v2.webp',
+    width: 2048,
+    height: 768,
     alt: 'A wide mountain landscape photographed by Mihiir.',
   },
   {
@@ -68,13 +68,13 @@ export function treatmentKey(photoId: string) {
 
 export const defaults: Record<FilterFamily, FilterSettings> = {
   glyphs: {
-    size: 14,
-    noise: 18,
-    softness: 24,
-    grain: 14,
+    size: 0,
+    noise: 3,
+    softness: 12,
+    grain: 2,
     color: 100,
-    strength: 100,
-    contrast: 110,
+    strength: 55,
+    contrast: 100,
     type: 'ink',
   },
   print: chosenPrintSettings.mountaineering,
@@ -85,6 +85,10 @@ export function photoDefaults(
 ): Record<FilterFamily, FilterSettings> {
   return {
     ...defaults,
+    glyphs: {
+      ...defaults.glyphs,
+      strength: photoId === 'mountain-panorama' ? 45 : 55,
+    },
     print: chosenPrintSettings[treatmentKey(photoId)] ?? defaults.print,
   };
 }
@@ -156,9 +160,10 @@ export function renderGlyphs(
   canvas: HTMLCanvasElement,
   image: HTMLImageElement,
   settings: FilterSettings,
+  outputWidth?: number,
 ) {
   const started = performance.now();
-  const width = Math.min(1600, image.naturalWidth);
+  const width = outputWidth ?? Math.min(1600, image.naturalWidth);
   const height = Math.round((width * image.naturalHeight) / image.naturalWidth);
   canvas.width = width;
   canvas.height = height;
@@ -232,4 +237,22 @@ export function renderGlyphs(
   }
   if (process.env.NODE_ENV === 'development')
     canvas.dataset.renderMs = (performance.now() - started).toFixed(1);
+}
+
+/** Export actual glyph edges at delivery resolution, not a scaled preview bitmap. */
+export function exportGlyphArtwork(
+  image: HTMLImageElement,
+  settings: FilterSettings,
+  width = 3840,
+) {
+  const glyphLayer = document.createElement('canvas');
+  renderGlyphs(glyphLayer, image, settings, width);
+  const output = document.createElement('canvas');
+  output.width = glyphLayer.width;
+  output.height = glyphLayer.height;
+  const ctx = output.getContext('2d')!;
+  ctx.drawImage(image, 0, 0, output.width, output.height);
+  ctx.globalAlpha = settings.strength / 100;
+  ctx.drawImage(glyphLayer, 0, 0);
+  return output;
 }

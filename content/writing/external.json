@@ -1,0 +1,28 @@
+[
+  {
+    "id": "stadium-trading-2",
+    "title": "The signal arrived. The order didn't.",
+    "summary": "Two MLS matches, a missed order and a closer look at what was actually sitting on the book. What I changed my mind about after the first stadium test.",
+    "format": "Experiment",
+    "formatSegment": "experiments",
+    "date": "2026-09-10",
+    "sourceUrl": "https://www.reddit.com/r/PredictionsMarkets/comments/1wbx9be/polymarket_followup_i_finally_put_a_friend_in_the/",
+    "series": "stadium-trading",
+    "seriesLabel": "Stadium trading",
+    "seriesOrder": 2,
+    "draft": true
+  },
+  {
+    "id": "stadium-trading-1",
+    "title": "From the stands to the order book",
+    "summary": "An in-stadium signal, an edge relay and a no-money test. What I measured, and what I still needed to test with real orders.",
+    "format": "Experiment",
+    "formatSegment": "experiments",
+    "date": "2026-07-14",
+    "sourceUrl": "https://www.reddit.com/r/PredictionsMarkets/comments/1uw3hvw/polymarket_i_couldnt_get_a_fast_enough_signal_for/",
+    "series": "stadium-trading",
+    "seriesLabel": "Stadium trading",
+    "seriesOrder": 1,
+    "draft": true
+  }
+]

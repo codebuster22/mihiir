@@ -1,0 +1,49 @@
+---
+draft: true
+title: "pm-ws"
+summary: "A shared prediction-market feed: authoritative order books, redundant connections, and native access from Rust, Python and TypeScript."
+role: "Product builder, architect and engineering lead"
+topics: ["Prediction markets", "Rust", "Market data", "Developer tooling"]
+relationship: "Mihiir's own market-data infrastructure project"
+projectStatus: "Active development; MIT licensed, public release pending"
+---
+
+If you're building an odds provider or a prediction-market aggregator, reading one order book is the easy part. Following hundreds of them means dealing with connections, updates arriving twice, missed messages, market resolutions and readers that fall behind. Every service you add can end up rebuilding that work.
+
+I built pm-ws to give those applications one shared market-data foundation. A Rust daemon owns the connections and maintains the authoritative books. Local applications read the latest state or follow price-level changes through Rust, Python and TypeScript interfaces.
+
+The first working venue is Limitless. I kept the book and delivery layers independent of its protocol so additional venues can have their own adapters, including different snapshot and delta behavior. The project is MIT licensed and preparing for its first public release.
+
+## One book, several ways to use it
+
+A strategy watching a few markets and a service recording an entire venue need different ways to consume updates. The strategy may want to react to each accepted change. The recorder needs an efficient way to find which markets changed without repeatedly scanning everything.
+
+I built both around the same published state. Consumers can read a current book, follow a bounded stream of mutations, or wait for a notification and inspect the changed-market index. They share memory on the same host, which avoids another broker hop and another round of JSON parsing between the daemon and each application.
+
+The Python and TypeScript interfaces call a Rust helper. That keeps memory validation and synchronization in one implementation while letting people use the language their application already runs in. Prices and quantities stay exact across that boundary.
+
+## Redundancy needs rules
+
+Opening a second WebSocket is straightforward. Deciding whether its next message is safe to publish takes more care.
+
+The daemon can race redundant connections when the venue's observed version behavior supports it. It accepts the first suitable new version, compares duplicates, and rejects older arrivals. If those assumptions stop holding, the shard falls back to one publisher with hot standbys.
+
+A standby also needs evidence before taking over. Agreement is evaluated per market, because one healthy book doesn't prove that every other book on the same connection is current. That distinction lets the system recover the markets it can trust while making uncertainty visible for the others.
+
+## Make missing history explicit
+
+A snapshot tells you what the book looks like now. A delta tells you how a particular part changed. The daemon keeps that distinction in the data it publishes.
+
+For a snapshot feed, it can derive the difference between two accepted books. For a delta feed, it applies source-reported changes against an established base. If a later snapshot disagrees, the system starts a new continuity epoch from that snapshot. A consumer can see that its history needs a fresh starting point.
+
+The same rule applies to slow readers. Their retained history is bounded, and falling behind produces an explicit loss signal. They can reattach to the latest book without holding up ingestion for everyone else.
+
+## Measure the whole path
+
+I measured from a WebSocket frame arriving at the daemon to a local consumer observing the update. In the recorded Apple M1 loopback test, 100 markets receiving 2,000 updates per second in aggregate produced a parked-consumer p99 of 137 microseconds. That run used five levels per side and two concurrent consumers, one parked and one spinning.
+
+The larger stress run showed where the current architecture needs work: at 10,000 markets and 20,000 updates per second, queueing introduced overload and substantially longer tails. Those results guide the next iteration on the ingestion path.
+
+Separate live Limitless runs followed 537 and 547 markets across 20 shards for fifteen minutes on two hosts, using the actual Python and TypeScript bindings. They exercised subscriptions, market lifecycle events and recovery against a changing venue feed.
+
+The useful outcome is a foundation an application can build on: shared books, clear continuity, and language interfaces that preserve the same underlying meaning. It takes connection and recovery work out of each consumer, so the application can focus on what it wants to do with the market data.

@@ -1,0 +1,39 @@
+---
+draft: true
+title: "Oracl"
+summary: "A prediction-market protocol prototype and investor demo, connecting market creation, binary pricing and creator fees."
+role: "Protocol architect and sole developer"
+topics: ["Prediction markets", "Smart contracts", "Product engineering"]
+relationship: "Client engagement through Chain Labs"
+projectStatus: "Investor demo delivered; contracts remain an undeployed prototype"
+---
+
+Oracl explored a specific prediction-market idea: the people who create a market and bring traders to it should participate in the fees it generates.
+
+I designed and built the Solidity protocol prototype, its specification and tests, and the investor-demo application. The work covered both the market's economic rules and the screens someone would use to create, trade and resolve it.
+
+## Turning the idea into a protocol
+
+I separated the contract system into a factory, an individual market contract and an ERC-1155 conditional-token layer. The factory creates markets and controls resolution. Each market handles pricing and trading. The token layer represents its YES and NO positions, with USDC as the intended collateral.
+
+For pricing, I implemented the Logarithmic Market Scoring Rule, or LMSR. This gives a binary market a pricing function based on the outstanding shares and its liquidity parameter. Translating that function into Solidity meant working with fixed-point approximations and a binary search to calculate how many shares a trade could buy.
+
+I also wrote a functional specification that made the intended accounting rules explicit: prices should sum correctly, fee distributions should conserve value, and resolution should follow the permitted authority and lifecycle.
+
+## Making attribution part of the trade
+
+The promoter address enters through the trade call. The contract records the corresponding fee allocation alongside the trade, rather than relying on a separate referral database to reconcile it afterward.
+
+I used accrued balances that recipients withdraw themselves. That keeps recipient transfers outside the trading transaction and reduces the external interactions involved in executing a trade. The architecture makes creator and promoter participation part of the protocol's accounting model.
+
+## Making the product explorable early
+
+The investor demo needed to show a complete journey before the contracts were deployed. I built market discovery, trading, creation, positions and creator, promoter and admin views against a simulated backend.
+
+The pricing preview and simulated purchases share the same TypeScript LMSR implementation. Server-sent events update market activity, while batched cache writes keep those updates from triggering unnecessary renders. API and data-access layers isolate the simulation so a future backend can replace it without rebuilding the screens.
+
+## What was delivered
+
+I delivered the demo application and a reference contract system. The demo simulates market activity and transactions; it is not connected to deployed trading contracts.
+
+The contracts remain an unaudited prototype with unresolved accounting and lifecycle issues, including fee allocation and voided-market redemption. They were never deployed on-chain. This case demonstrates the product and protocol design work, with production hardening still required before the system could handle funds.

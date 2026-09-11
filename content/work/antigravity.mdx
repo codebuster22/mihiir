@@ -1,0 +1,60 @@
+---
+draft: true
+title: "Antigravity"
+summary: "Owning product delivery for an on-chain game: architecture, system design, core engineering and a team building the surrounding product."
+role: "Product owner, architect and engineering lead"
+topics: ["Product leadership", "DeFi", "Smart contracts", "Infrastructure"]
+relationship: "Product delivery for AGOG through Chain Labs"
+projectStatus: "Delivered; historical mainnet release"
+subtitle: "An on-chain game, from product decisions to mainnet delivery."
+toc: [{"id":"product-ownership","label":"Product ownership"},{"id":"game-state","label":"Game state"},{"id":"infrastructure","label":"Infrastructure"},{"id":"economy","label":"Economy"},{"id":"delivery","label":"Delivery"}]
+---
+
+import { ContentSection } from '@/components/content/content-section';
+import { GameStateDiagram } from '@/components/content/game-state-diagram';
+
+<ContentSection id="product-ownership">
+
+I owned Antigravity’s product delivery: the architecture, core systems and the team building the game. We shipped it on PulseChain and Base. I managed the engineers and kept the work on schedule while writing the core contracts, building the indexing paths, designing the keepers and modelling the economy myself.
+
+The game unfolds in chapters. Players register, mine tokens, enter journeys and participate in lotteries. The rules change as the game moves into its next phase.
+
+The challenge was making all of that behave as one product. A contract could be correct on its own and still leave a player looking at the wrong state, or waiting for an action that another part of the system needed to trigger.
+
+</ContentSection>
+
+<ContentSection id="game-state" title="Give the game one answer to “what happens next?”">
+
+For the journey system, I put the current phase behind a shared phase manager. The other contracts consult it to determine which actions are available and when the game should move forward.
+
+The product also needed a usable view of that state. I built the indexing layer to turn contract events into player and game data, and designed off-chain keepers—the processes responsible for triggering scheduled actions—to advance the game.
+
+These relationships mattered to the engineers building the interfaces. They had a common model to work against: what the contracts allowed, what the player had done and what was due to happen next.
+
+<GameStateDiagram />
+
+</ContentSection>
+
+<ContentSection id="infrastructure" title="Make the missing infrastructure part of the plan">
+
+At the time of the build, PulseChain lacked the hosted Graph support and native Chainlink randomness service the game needed. Those gaps became part of my system design.
+
+I configured and self-hosted a Graph node for PulseChain and built a separate indexing path with Ponder. For the lotteries, I deployed the Chainlink randomness consumer on Base and designed the request-and-announcement lifecycle around that cross-chain boundary.
+
+That flow included a guard against overlapping requests and a validity window for the response. Getting a random number was one step; the game also needed to know which request it belonged to and when it could be used.
+
+</ContentSection>
+
+<ContentSection id="economy" title="Work through the economy before committing its parameters">
+
+Mining rewards, treasury payments and jackpots affect each other over the course of a journey. I built a Python simulation of those flows so we could examine the consequences of the parameters before putting them into the contracts.
+
+The game also had to accommodate changes between journeys. I separated the storage layouts from the upgradeable contract logic, making the state that needed to survive an upgrade explicit. Unit, integration and fuzz tests, alongside audit remediation, supported that work.
+
+</ContentSection>
+
+<ContentSection id="delivery" title="Following the decisions through to delivery">
+
+Antigravity reached mainnet on PulseChain and Base. My responsibility continued across the boundaries between contracts, infrastructure and the team building the surrounding product, through to timely delivery.
+
+</ContentSection>

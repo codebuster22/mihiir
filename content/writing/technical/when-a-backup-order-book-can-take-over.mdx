@@ -1,0 +1,45 @@
+---
+draft: true
+title: "When can a backup order book take over?"
+summary: "A second WebSocket gives you another connection. You still have to decide whether its order book is safe to publish."
+format: "Technical analysis"
+formatSegment: "technical"
+relatedWork: "pm-ws"
+---
+
+import { ContinuityDiagram } from '@/components/content/continuity-diagram';
+
+I've been working through that problem in pm-ws, a Rust daemon that maintains order books from Prediction Markets and shares them with local applications. The first working venue is Limitless. Python and TypeScript applications can read the same state without each maintaining their own connections and recovery logic.
+
+The interesting part begins when one of those connections stops behaving as expected.
+
+## A healthy connection doesn't prove every book is current
+
+One market can stop updating while the rest of its connection looks healthy. That is why pm-ws decides whether to switch publishers one market at a time. A standby needs evidence that its book agrees before it can become the publisher for that market.
+
+Keeping another socket open is only part of the job. The system needs rules for deciding which messages to accept and when those rules have stopped being safe.
+
+## Racing connections needs an escape route
+
+When a venue's observed version behavior supports it, pm-ws can race redundant connections. It accepts the first suitable new version, compares duplicates and rejects older arrivals.
+
+If those assumptions stop holding, the shard falls back to one publisher with hot standbys. The fallback is part of the design: the daemon needs to preserve what it can say about the book even when the feed no longer behaves as expected.
+
+## Tell the reader when its history breaks
+
+
+A consumer may need the current book, or it may need the sequence of changes that produced it. Those are different requirements.
+
+For a snapshot feed, pm-ws can derive the difference between accepted books. For a delta feed, it applies the reported changes against an established base. If a later snapshot disagrees, the system starts a new continuity epoch from that snapshot. That gives consumers an explicit fresh starting point.
+
+<ContinuityDiagram />
+
+A slow reader can also fall beyond the retained history. It gets a loss signal and can reattach to the current book, while ingestion continues for other consumers.
+
+The question I want the interface to answer is simple: **what can this application safely assume about the data it has just read?**
+
+That's the part I want to settle before asking every downstream application to build on it.
+
+## The implementation
+
+pm-ws brings the shared books, recovery rules and language interfaces together. It's MIT licensed and in active development, with its public release still ahead.

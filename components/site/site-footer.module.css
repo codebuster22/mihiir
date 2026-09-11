@@ -1,0 +1,254 @@
+.footer {
+  position: relative;
+  padding: 48px var(--gutter);
+  color: var(--ink);
+  background: white;
+  max-width: 1440px;
+  margin-inline: auto;
+}
+.landscape {
+  padding-top: 80px;
+  padding-bottom: 358px;
+  isolation: isolate;
+  overflow: hidden;
+}
+.composition {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 96px;
+}
+.invitation {
+  width: 600px;
+  max-width: 100%;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 24px;
+}
+.invitation h2 {
+  font-size: 64px;
+  line-height: 68px;
+  font-weight: 500;
+  letter-spacing: -0.045em;
+}
+.invitation p {
+  font-size: 20px;
+  line-height: 30px;
+  max-width: 530px;
+}
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 64px;
+  width: 400px;
+  flex-shrink: 0;
+}
+.siteGroup,
+.socialGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.siteGroup {
+  width: 144px;
+}
+.socialGroup {
+  width: 160px;
+}
+.wordmark {
+  color: var(--ink);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  letter-spacing: -0.04em;
+  text-decoration: none;
+}
+.groupHeading {
+  font-size: 18px;
+  line-height: 32px;
+  font-weight: 500;
+  color: var(--muted);
+}
+.links {
+  display: flex;
+  flex-direction: column;
+}
+.links > a,
+.pending {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  min-width: 44px;
+  width: fit-content;
+  font-size: 17px;
+  line-height: 24px;
+  color: var(--blue);
+}
+.links > a {
+  text-decoration: underline;
+  text-decoration-color: #adc1ea;
+  text-underline-offset: 5px;
+}
+.links > a:hover {
+  text-decoration-color: var(--blue);
+}
+.pending {
+  color: var(--muted);
+}
+.compact .navigation {
+  width: 100%;
+  gap: 96px;
+}
+.compact .siteGroup {
+  width: 600px;
+  max-width: 50%;
+}
+.compact .socialGroup {
+  width: 400px;
+  max-width: 50%;
+}
+.compact .links {
+  flex-direction: row;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.compact .siteGroup .links {
+  gap: 32px;
+}
+.panorama {
+  position: absolute;
+  inset: auto 0 0;
+  height: 383px;
+  z-index: -2;
+}
+.panorama img { width:100%; height:100%; object-fit:cover; object-position:center; }
+.fade {
+  position: absolute;
+  inset: auto 0 183px;
+  height: 224px;
+  z-index: -1;
+  background: linear-gradient(
+    to bottom,
+    #fff 0%,
+    #fff 36%,
+    rgb(255 255 255 / 0.82) 60%,
+    rgb(255 255 255 / 0) 100%
+  );
+  pointer-events: none;
+}
+.privacy {
+  position: relative;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  padding-top: 28px;
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--muted);
+}
+.privacy > a,
+.privacy > button {
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  color: inherit;
+  text-underline-offset: 4px;
+}
+@media (max-width: 1150px) and (min-width: 761px) {
+  .composition {
+    gap: 56px;
+  }
+  .invitation {
+    width: 55%;
+  }
+  .invitation h2 {
+    font-size: 50px;
+    line-height: 56px;
+  }
+  .navigation {
+    width: 35%;
+    gap: 24px;
+  }
+  .siteGroup,
+  .socialGroup {
+    width: auto;
+  }
+}
+@media (max-width: 760px) {
+  .footer {
+    padding: 48px var(--gutter);
+  }
+  .landscape {
+    padding-top: 56px;
+    padding-bottom: 364px;
+  }
+  .composition {
+    flex-direction: column;
+    gap: 48px;
+  }
+  .invitation {
+    width: 100%;
+  }
+  .invitation h2 {
+    font-size: 38px;
+    line-height: 41px;
+    letter-spacing: -0.04em;
+  }
+  .desktopBreak {
+    display: none;
+  }
+  .invitation p {
+    font-size: 17px;
+    line-height: 25px;
+  }
+  .navigation,
+  .compact .navigation {
+    width: 100%;
+    gap: 48px;
+  }
+  .siteGroup,
+  .compact .siteGroup {
+    width: 136px;
+    max-width: 50%;
+  }
+  .socialGroup,
+  .compact .socialGroup {
+    width: 144px;
+    max-width: 50%;
+  }
+  .compact .links {
+    flex-direction: column;
+    gap: 0;
+  }
+  .compact .siteGroup .links {
+    gap: 0;
+  }
+  .panorama {
+    height: 320px;
+  }
+  .fade {
+    height: 208px;
+    bottom: 136px;
+    background: linear-gradient(
+      to bottom,
+      #fff 0%,
+      #fff 20%,
+      rgb(255 255 255 / 0.85) 45%,
+      rgb(255 255 255 / 0) 100%
+    );
+  }
+}
+@media (max-width: 360px) {
+  .navigation,
+  .compact .navigation {
+    gap: 24px;
+  }
+  .invitation h2 {
+    font-size: 36px;
+    line-height: 40px;
+  }
+}

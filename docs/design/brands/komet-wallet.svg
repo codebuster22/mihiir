@@ -1,0 +1,47 @@
+<svg width="430" height="96" viewBox="0 0 430 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.9375 52.1143L41.2146 86.8571H64.0237L33.4233 48L62.8946 9.14286H41.2146L16.9375 43.8857V9.14286H0V86.8571H16.9375V52.1143ZM137.626 47.8857C137.626 59.8857 126.899 70.8571 115.043 70.8571C103.186 70.8571 92.4593 59.8857 92.4593 47.8857C92.4593 35.8857 103.186 25.0286 115.043 25.0286C126.899 25.0286 137.626 35.8857 137.626 47.8857ZM154.563 48C154.563 26.5143 136.271 8 115.043 8C93.8143 8 75.5218 26.5143 75.5218 48C75.5218 69.4857 93.8143 88 115.043 88C136.271 88 154.563 69.4857 154.563 48ZM277.364 86.8571L262.459 9.14286H242.36L226.438 63.6571L210.404 9.14286H190.305L175.4 86.8571H194.031L203.065 33.2571L218.083 86.8571H234.681L249.699 33.2571L258.733 86.8571H277.364ZM345.574 71.3143H318.023V55.6571H344.445V40.1143H318.023V24.6857H345.574V9.14286H301.085V86.8571H345.574V71.3143ZM408.094 24.6857H430V9.14286H369.251V24.6857H391.157V86.8571H408.094V24.6857Z" fill="url(#paint0_linear_10212_6869)"/>
+<defs>
+<linearGradient id="paint0_linear_10212_6869" x1="-115.703" y1="50.1053" x2="483.534" y2="50.1053" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F9654F"/>
+<stop offset="1" stop-color="#FF26E9"/>
+</linearGradient>
+</defs>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</svg>

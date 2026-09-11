@@ -1,0 +1,87 @@
+.strip {
+  height: 128px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  padding-inline: var(--gutter);
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 5%,
+    #000 95%,
+    transparent
+  );
+}
+.track {
+  display: flex;
+  width: max-content;
+  animation: logoTravel 52s linear infinite;
+  will-change: transform;
+}
+.set {
+  display: flex;
+  gap: 26px;
+  padding-right: 26px;
+  flex-shrink: 0;
+}
+.slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 208px;
+  height: 64px;
+  flex-shrink: 0;
+}
+.slot img {
+  height: 48px;
+  object-fit: contain;
+  max-width: 90%;
+}
+.strip:hover .track,
+.strip:focus-within .track,
+.strip[data-visible='false'] .track {
+  animation-play-state: paused;
+}
+@keyframes logoTravel {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (max-width: 760px) {
+  .strip {
+    height: 108px;
+  }
+  .slot {
+    width: 168px;
+  }
+  .set {
+    gap: 28px;
+    padding-right: 28px;
+  }
+  .slot img {
+    height: 44px;
+  }
+  .track {
+    animation-duration: 41s;
+  }
+}
+@media (prefers-reduced-motion: reduce), (hover: none) {
+  .strip {
+    height: auto;
+    min-height: 108px;
+    overflow-x: auto;
+    mask-image: none;
+    padding: 24px var(--gutter);
+  }
+  .track {
+    animation: none;
+    will-change: auto;
+  }
+  .set:nth-child(2) {
+    display: none;
+  }
+  .set {
+    padding-right: 0;
+  }
+}

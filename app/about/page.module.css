@@ -1,0 +1,220 @@
+.page {
+  color: var(--ink);
+}
+
+.opening {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 64px var(--gutter) 80px;
+}
+
+.opening h1 {
+  margin: 0 0 8px;
+  font-size: clamp(44px, 4.44vw, 64px);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.opening p {
+  max-width: 780px;
+  margin: 0;
+  font-size: 24px;
+  line-height: 36px;
+}
+
+.experience {
+  padding: 0 var(--gutter) 80px;
+  scroll-margin-top: 32px;
+}
+
+.experience h2,
+.follow h2 {
+  margin: 0;
+  font-size: 36px;
+  line-height: 42px;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+
+.timeline {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chapter,
+.follow {
+  display: grid;
+  grid-template-columns: minmax(220px, 328px) minmax(0, 760px);
+  column-gap: clamp(32px, 5vw, 72px);
+}
+
+.chapter {
+  padding-block: 36px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.chapterHeading {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.period {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.chapter h3 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 36px;
+  letter-spacing: -0.03em;
+}
+
+.role {
+  margin: 0;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.chapterBody,
+.followBody {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  font-size: 20px;
+  line-height: 31px;
+}
+
+.chapterBody p,
+.follow p {
+  margin: 0;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 17px;
+  line-height: 24px;
+}
+
+.follow {
+  padding: 0 var(--gutter) 80px;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+}
+
+.close {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 64px var(--gutter);
+  background: var(--sky);
+}
+
+.close h2 {
+  margin: 0;
+  font-size: 44px;
+  line-height: 50px;
+  letter-spacing: -0.035em;
+  font-weight: 500;
+}
+
+.close p {
+  max-width: 620px;
+  margin: 0;
+  font-size: 20px;
+  line-height: 31px;
+}
+
+@media (max-width: 800px) {
+  .opening {
+    padding-block: 40px 56px;
+    gap: 20px;
+  }
+
+  .opening h1 {
+    font-size: 42px;
+    line-height: 46px;
+    margin-bottom: 4px;
+  }
+
+  .opening p {
+    font-size: 21px;
+    line-height: 31px;
+  }
+
+  .experience {
+    padding-bottom: 56px;
+  }
+
+  .experience h2,
+  .follow h2 {
+    font-size: 28px;
+    line-height: 34px;
+  }
+
+  .chapter,
+  .follow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .chapter {
+    padding-block: 28px;
+  }
+
+  .chapterHeading {
+    gap: 8px;
+  }
+
+  .chapter h3 {
+    font-size: 26px;
+    line-height: 32px;
+  }
+
+  .role {
+    font-size: 17px;
+    line-height: 25px;
+  }
+
+  .chapterBody,
+  .followBody,
+  .close p {
+    font-size: 18px;
+    line-height: 28px;
+    gap: 20px;
+  }
+
+  .follow {
+    padding-bottom: 56px;
+  }
+
+  .links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .close {
+    padding-block: 48px;
+  }
+
+  .close h2 {
+    font-size: 32px;
+    line-height: 37px;
+  }
+}

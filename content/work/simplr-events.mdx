@@ -1,0 +1,33 @@
+---
+draft: true
+title: "Simplr Events"
+summary: "Ticketing infrastructure spanning private resale, dispute escrow, and replay-protected venue redemption."
+role: "Smart-contract architect and protocol engineer"
+topics: ["Consumer Web3", "Smart contracts", "Indexing", "Ticketing"]
+relationship: "Chain Labs product supported by an Arbitrum grant"
+projectStatus: "Contract systems delivered; Devcon was the only confirmed executed event integration"
+---
+
+Turning a ticket into a token does not settle the difficult parts of ticketing. A buyer still needs to know the ticket is valid. Its QR code needs to stay private. The seller needs a way to receive payment, and the person at the gate needs to reject a ticket that has already been used.
+
+Simplr Events was our own product at Chain Labs, supported by an Arbitrum grant. It evolved from email-based ticket claims into a resale protocol, then into a system covering primary sales and venue redemption.
+
+I owned the smart-contract architecture and protocol implementation, built the indexers, and handled the later applications' Web3 integration. I also wrote the original email-claim backend. Teammates built the main interfaces and subsequent API servers.
+
+## Keep private ticket data off the public ledger
+
+For resale, I designed a digital representation of an existing ticket. Event-specific verification checked the seller's claim to the original ticket. Sensitive contents were encrypted with Lit Protocol and stored on IPFS; the contract held a reference and a hash of the serial number.
+
+The verification interface let each event supply its own ownership check. The Moongate implementation combined a signature with a check against the original ticket contract, keeping that event-specific logic outside the marketplace.
+
+## Model the awkward part of a sale
+
+Sellers signed listings off-chain. A purchase moved the ticket and seller proceeds into escrow, with release following buyer confirmation. Either party could raise a dispute, and an administrator could resolve it.
+
+I made access to the encrypted ticket depend on the escrow state. The same lifecycle governing payment therefore informed who could read the ticket. I also built a Ponder indexer that discovered newly created event contracts and turned their transactions into queryable ticket, listing, and escrow records for the applications.
+
+## Treat admission as its own protocol
+
+In the later QIE version, I introduced ticket tiers and signed QR redemption with a deadline and a per-user nonce. Redemption consumed the ticket and issued an access pass with a temporary transfer restriction. The scanner's preflight checks were batched into one RPC request.
+
+The work produced several generations of contracts, indexing, and integration documentation. We executed an integration for Devcon. The later venue-redemption work extended the engineering from buying and reselling a ticket to checking it at the gate, with privacy, payment and admission each represented in the system.

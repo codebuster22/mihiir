@@ -1,0 +1,42 @@
+.page {
+  padding: 64px var(--gutter) 80px;
+}
+
+.reading {
+  max-width: 760px;
+  margin-inline: auto;
+}
+
+.reading h1 {
+  margin: 0 0 32px;
+  font-size: 60px;
+  line-height: 65px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+
+.preferences:empty {
+  display: none;
+}
+
+.preferences button {
+  min-height: 44px;
+  color: var(--blue);
+  background: none;
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 800px) {
+  .page {
+    padding-block: 40px 48px;
+  }
+
+  .reading h1 {
+    font-size: 40px;
+    line-height: 44px;
+  }
+}

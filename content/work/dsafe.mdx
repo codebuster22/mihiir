@@ -1,0 +1,35 @@
+---
+draft: true
+title: "dSafe"
+summary: "A TypeScript SDK that moves Safe multisig coordination onto Ceramic while preserving familiar transaction API calls."
+role: "Lead SDK engineer and architect"
+topics: ["Safe", "Developer tooling", "Decentralized data"]
+relationship: "Delivered through Chain Labs for Daoism Systems, funded by the Safe Grants Program"
+projectStatus: "SDK published and grant milestones completed; no known production adopter"
+---
+
+A multisig transaction starts before it reaches the blockchain. Owners need to find the proposal, add their signatures, and see who has confirmed it. Safe's Transaction Service handles that coordination through a hosted backend.
+
+dSafe explored moving those records onto Ceramic and ComposeDB. The challenge was to give developers a different storage layer without making them rebuild the application around it.
+
+I led the SDK architecture and implementation through Chain Labs for Daoism Systems. The work was funded by the Safe Grants Program. I built the core API, transaction handlers, data models, authentication, package structure, and developer documentation. I also scaffolded the demo and connected the SDK; a teammate built out most of its interface.
+
+## Start at the integration boundary
+
+I designed `fetchLegacy` around the request shapes and routes developers already used with the Safe Transaction API. A dispatcher matched each route to a ComposeDB handler for operations such as creating transactions, adding confirmations, reading pending transactions, or managing delegates.
+
+This made the change concrete for an integrator: replace the relevant API call, then keep working with the familiar transaction flow. The SDK also supported custom model definitions for local development, alongside the definitions shipped with the package.
+
+## Rebuild the relationships behind a transaction
+
+Safe data has connected entities: wallets, owners, transactions, confirmations, and delegates. I modeled those relationships as ComposeDB documents, references, and indexes.
+
+A fresh decentralized store did not already contain the history a transaction service would know. On the write path, the SDK fetched missing Safe metadata, created owner relationships when needed, and then stored the transaction and confirmation. Browser writes used a DID session derived from the connected Ethereum wallet.
+
+## Keep the fallback visible
+
+I kept the Safe Transaction API as a fallback for unsupported routes and handler failures. The response identified whether the SDK or the API had served the request, so callers could distinguish the two paths.
+
+That choice preserved a dependency on Safe's infrastructure. It also let the experiment support gradual integration while the decentralized implementation covered a smaller surface of the API.
+
+I published `@daoism-systems/dsafe-sdk`, wrote the integration guides, and completed the grant milestones. The demo exercised the SDK on Sepolia using a Ceramic testnet node. The delivered work was a published SDK and a working exploration of how to change multisig infrastructure without forcing the same change through every user-facing screen.

@@ -1,0 +1,88 @@
+.page {
+  padding: 64px var(--gutter) 80px;
+  color: var(--ink);
+}
+
+.reading {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  max-width: 760px;
+  margin-inline: auto;
+}
+
+.reading h1 {
+  margin: 0 0 8px;
+  font-size: 52px;
+  font-weight: 500;
+  line-height: 59px;
+  letter-spacing: -0.04em;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.section h2 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 40px;
+  letter-spacing: -0.03em;
+}
+
+.section p {
+  margin: 0;
+  font-size: 21px;
+  line-height: 31px;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 17px;
+  line-height: 24px;
+}
+
+.continue {
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+}
+
+@media (max-width: 800px) {
+  .page {
+    padding-block: 40px 48px;
+  }
+
+  .reading {
+    gap: 40px;
+  }
+
+  .reading h1 {
+    margin-bottom: 0;
+    font-size: 36px;
+    line-height: 41px;
+    letter-spacing: -0.035em;
+  }
+
+  .section h2 {
+    font-size: 26px;
+    line-height: 33px;
+  }
+
+  .section p {
+    font-size: 18px;
+    line-height: 28px;
+  }
+}

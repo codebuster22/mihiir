@@ -1,0 +1,192 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+  padding: 24px var(--gutter);
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  position: relative;
+  z-index: 20;
+}
+.overlay {
+  position: absolute;
+  inset: 0 0 auto;
+  isolation: isolate;
+}
+.brand,
+.menuBrand {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  text-decoration: none;
+  position: relative;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.destinations {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  position: relative;
+  isolation: isolate;
+}
+.destinations > a {
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 24px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.destinations > a:hover,
+.destinations > a[aria-current] {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-color: var(--blue);
+}
+.destinations > .booking {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-color: #b8c2cd;
+}
+.overlay .brand::before,
+.overlay .destinations::before,
+.overlay .menuButton::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  background: rgb(255 255 255 / 0.94);
+  border-radius: 24px;
+  pointer-events: none;
+}
+.overlay .brand::before {
+  inset: -8px -24px;
+  filter: blur(16px);
+}
+.overlay .destinations::before {
+  inset: -12px -24px;
+  filter: blur(18px);
+}
+.brand {
+  isolation: isolate;
+}
+.menuButton {
+  display: none;
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 24px;
+  min-height: 44px;
+  position: relative;
+  isolation: isolate;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-color: #b8c2cd;
+}
+.dialog {
+  position: fixed;
+  inset: 0 0 auto auto;
+  width: min(100%, 480px);
+  max-width: 100%;
+  max-height: 100dvh;
+  padding: 0;
+  border: 0;
+  margin: 0;
+  background: white;
+  color: var(--ink);
+  overflow-y: auto;
+  box-shadow: -8px 0 48px rgb(32 35 38 / 0.08);
+}
+.dialog[open] {
+  animation: menuEnter 180ms ease-out;
+}
+.dialog::backdrop {
+  background: rgb(32 35 38 / 0.2);
+  backdrop-filter: blur(4px);
+}
+.menuPanel {
+  padding: 12px 24px 40px;
+}
+.menuTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.menuTop > button {
+  min-height: 44px;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.menuLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 8px;
+  padding: 44px 0;
+}
+.menuLinks > a {
+  font-size: 36px;
+  line-height: 48px;
+  letter-spacing: -0.035em;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  min-height: 48px;
+}
+.menuLinks > a:hover,
+.menuLinks > a[aria-current] {
+  color: var(--blue);
+}
+.menuCall {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 24px;
+  max-width: 330px;
+}
+.menuCall > p {
+  font-size: 18px;
+  line-height: 28px;
+}
+@keyframes menuEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 760px) {
+  .header {
+    padding: 12px var(--gutter);
+    gap: 24px;
+  }
+  .destinations {
+    display: none;
+  }
+  .menuButton {
+    display: block;
+  }
+  .overlay .brand::before {
+    inset: -4px -14px;
+    filter: blur(12px);
+  }
+  .overlay .menuButton::before {
+    inset: -4px -14px;
+    filter: blur(12px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dialog[open] {
+    animation: none;
+  }
+}

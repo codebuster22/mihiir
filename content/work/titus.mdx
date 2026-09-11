@@ -1,0 +1,39 @@
+---
+draft: true
+title: "Titus"
+summary: "My prediction-market trading framework, from market data and exact money arithmetic to execution and operator controls."
+role: "Creator, architect and sole core developer"
+topics: ["Prediction markets", "Trading infrastructure", "System design"]
+relationship: "Independent product, also used for a separate client strategy engagement"
+projectStatus: "Framework and client distribution built; prior multi-region deployment retired"
+---
+
+Titus is my own prediction-market trading framework. I built it around the work that sits beneath a strategy: receiving market data, placing orders, managing on-chain positions and giving an operator a clear way to control the system.
+
+A trading idea can look simple until it encounters partial fills, mismatched units, stale nonces or an order that is still active while the underlying tokens are being merged. I owned the core architecture and implementation, including the strategy SDK, execution service, deployment tooling and operating controls.
+
+## Separate strategy decisions from execution authority
+
+I organised the system into a market-data publisher, strategy applications and an executor, connected through NATS messaging. Strategies consume data and request actions through the SDK. They do not hold signing credentials; the executor handles authenticated trading and on-chain operations.
+
+This boundary lets strategy code change without bringing wallet handling into every application. The SDK gives strategies a common way to read the order book and manage orders, while the execution service owns the exchange and settlement details.
+
+## Treat money arithmetic and order state as engineering problems
+
+I introduced explicit integer types for prices, share sizes and USDC amounts. These types distinguish quantities that might otherwise look like interchangeable numbers, and make rounding a deliberate operation.
+
+Execution also needed to account for the difference between a reported fill and tokens settled on-chain. I used settled balances to size sells and suppressed sell orders before a merge to avoid conflicting operations on the same inventory.
+
+One signing failure came from a local Safe nonce falling behind the chain. I changed the signing path to read the on-chain nonce immediately before signing, and limited the retry path to a confirmed reverted transaction. That addressed a concrete failure mode rather than retrying every uncertain submission.
+
+## Make the system usable by an operator
+
+I built a command-line interface for status, logs, restarts and rollback, alongside monitoring and Telegram alerts. A restart validates the configuration, saves a snapshot, checks health afterward and rolls back if the health check fails. Emergency-stop controls provide a separate way to halt strategies.
+
+For a distinct client engagement, I took responsibility for strategy design as well as implementation and packaged a deployable distribution with onboarding and troubleshooting documentation. The underlying framework remained my own product. I also co-built the separate rewards-signals engine with another Chain Labs engineer.
+
+## Delivery and current scope
+
+The framework supported live trading strategies and a client deployment. I later retired the multi-region AWS deployment, preserving its infrastructure definitions and deployment artifacts for rebuilding. That deployment is no longer running.
+
+Titus Intelligence, the related indexing and data product, is separate work. This case focuses on the trading framework and the decisions needed to make its execution and operation dependable.

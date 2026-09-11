@@ -1,0 +1,39 @@
+---
+draft: true
+title: "Supermigrate / Launchbox"
+summary: "Building token migration and launch contracts, with careful accounting around pricing, fees and the transition into liquidity."
+role: "Smart-contract lead; Launchbox primary author and migration co-author"
+topics: ["DeFi", "Smart contracts", "Cross-chain"]
+relationship: "Contract engineering for Metastable Labs"
+projectStatus: "Contract system delivered"
+---
+
+Supermigrate brought token migration and launch mechanics into one product. A token project could establish a canonical version of its token on an OP-Stack network, then create a market through a bonding-curve launch system called Launchbox.
+
+I led the smart-contract work. I built the Launchbox token, factory and exchange contracts, co-authored the migration contracts, created deployment tooling and worked through economic issues identified during review. Other engineers contributed to the wider platform and parts of the oracle handling.
+
+## Making migration repeatable
+
+A bridged token has to follow the destination network's conventions. Its bridge permissions, remote-token address and interfaces need to agree. Small configuration mistakes can leave a token deployed but unusable.
+
+I worked on an initializer-and-clone design for the migration contracts and parameterized the deployment tooling across networks. A shared implementation kept repeated deployments consistent, while network-specific bridge wiring remained explicit.
+
+## Designing the launch curve
+
+Launchbox sells tokens against a bonding curve before moving liquidity into an external pool. I built the token, factory and exchange system through several pricing iterations, arriving at a constant-product design with virtual reserves.
+
+The important boundary was the transition out of the sale. Purchases, fees, supply and the liquidity threshold all needed to use compatible accounting. The contract had to know when the sale was complete before it could establish liquidity elsewhere.
+
+## Testing the economic behavior
+
+One audit finding exposed a profitable immediate buy-and-sell round trip. The arithmetic could execute successfully while the economic behavior drained reserves.
+
+I changed the fee and reserve accounting and added a test asserting that an immediate round trip could not generate a profit. I also restricted liquidity creation until the sale had ended, closing a path that allowed the pool to be established prematurely. Further fixes addressed the initial buyer, supply initialization and liquidity slippage.
+
+These were specific fixes within a collaborative review. Other contributors handled additional oracle and audit findings.
+
+## Delivery
+
+I delivered the contract work and deployment tooling, including the initial Optimism and Mode deployments. The useful evidence is in the contract design, deployment history and tests around economic behavior.
+
+This project is a close look at the kind of engineering a launch depends on: the relationships between pricing, accounting and lifecycle rules, and the failure cases that need to be worked through before users encounter them.

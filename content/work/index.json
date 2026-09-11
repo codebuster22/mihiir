@@ -1,0 +1,79 @@
+[
+  {
+    "slug": "antigravity",
+    "title": "Antigravity",
+    "summary": "I owned product delivery for an on-chain game: designing the architecture, building the core systems and leading the engineers. We shipped it on PulseChain and Base.",
+    "stage": "Delivered · historical mainnet release",
+    "category": "Product engineering"
+  },
+  {
+    "slug": "titus-intelligence",
+    "title": "Titus Intelligence",
+    "summary": "I'm building a historical data layer for Polymarket, connecting raw events to markets and positions. The indexer includes recovery checkpoints and checks on how the data is interpreted.",
+    "stage": "Backfill operated · certification in progress",
+    "category": "Prediction Markets"
+  },
+  {
+    "slug": "pm-ws",
+    "title": "pm-ws",
+    "summary": "I'm building a Rust daemon that lets Python and TypeScript applications share order books from Prediction Markets, with redundant feed connections and signals when a book loses continuity. Limitless is the first supported venue.",
+    "stage": "In development · MIT licensed, public release pending",
+    "category": "Prediction Markets"
+  },
+  {
+    "slug": "titus",
+    "title": "Titus",
+    "summary": "I created a trading framework for Prediction Markets that separates strategy logic from credentials and execution. It brings together market data, exact money arithmetic and the controls needed to operate a trading system.",
+    "stage": "Framework delivered · prior deployment retired",
+    "category": "Prediction Markets"
+  },
+  {
+    "slug": "oracl",
+    "title": "Oracl",
+    "summary": "I designed and built a protocol prototype for Prediction Markets, connecting market creation, binary pricing and creator fees. An interactive investor demo made the proposed product explorable through simulated trading.",
+    "stage": "Investor demo delivered · undeployed contract prototype",
+    "category": "Prediction Markets"
+  },
+  {
+    "slug": "supermigrate",
+    "title": "Supermigrate / Launchbox",
+    "summary": "I led contract engineering for token migration and launches, writing the Launchbox contracts and co-authoring the migration system. The work included pricing, fee accounting and the transition from a launch into liquidity.",
+    "stage": "Contract systems delivered",
+    "category": "Protocols & developer tools"
+  },
+  {
+    "slug": "toucan",
+    "title": "Toucan",
+    "summary": "I led engineering for Toucan's cross-chain carbon bridge, from messenger contracts to tests and deployment tooling. The design kept token transfers consistent while the underlying messaging transport changed.",
+    "stage": "Bridge delivered · later deployed by the team",
+    "category": "Protocols & developer tools"
+  },
+  {
+    "slug": "bipzy",
+    "title": "Bipzy",
+    "summary": "I led smart-contract development for tiered presales, NFTs and staking. I also built the index that made staking state available to the application.",
+    "stage": "Contract work delivered · 2023–2024",
+    "category": "Product engineering"
+  },
+  {
+    "slug": "dsafe",
+    "title": "dSafe",
+    "summary": "I designed a TypeScript SDK that moves Safe transaction coordination onto decentralized storage while preserving familiar API calls. Built for Daoism Systems through the Safe Grants Program, it gives developers another way to coordinate multisig transactions.",
+    "stage": "SDK published · grant milestones completed",
+    "category": "Protocols & developer tools"
+  },
+  {
+    "slug": "impact-evaluator",
+    "title": "Impact Evaluator",
+    "summary": "At Curve Labs, I built the off-chain infrastructure for turning DAO contribution data into reproducible reward allocations. The prototype used Bacalhau and Ceramic, supported by a Protocol Labs grant to Curve Labs.",
+    "stage": "Prototype demonstrated on Goerli",
+    "category": "Protocols & developer tools"
+  },
+  {
+    "slug": "simplr-events",
+    "title": "Simplr Events",
+    "summary": "I designed ticketing contracts for Chain Labs' own product, covering private resale, dispute escrow and ticket redemption at the venue. The work was supported by an Arbitrum grant.",
+    "stage": "Contracts delivered · Devcon integration executed",
+    "category": "Product engineering"
+  }
+]

@@ -1,0 +1,33 @@
+---
+draft: true
+title: "Impact Evaluator"
+summary: "A reproducible path from DAO contribution data to on-chain reward allocations, built on Bacalhau and Ceramic."
+role: "Off-chain infrastructure engineer"
+topics: ["Decentralized compute", "DAO tooling", "Developer infrastructure"]
+relationship: "Built at Curve Labs under a Protocol Labs grant awarded to Curve Labs"
+projectStatus: "Prototype demonstrated on Goerli; no production deployment"
+---
+
+A DAO can agree to reward contributions and still have a difficult question left: who runs the calculation, and why should everyone trust the result?
+
+Impact Evaluator explored a way to make that calculation reproducible. Contributors recorded data on Ceramic. A DAO supplied its own scoring function. Bacalhau ran that function in a container, and its output became a reward allocation that could be settled on-chain.
+
+I built the off-chain compute layer while working at Curve Labs, on a project funded by a Protocol Labs grant to the studio. My responsibility covered the job runner, Docker packaging, reward-tree generation, execution scripts, and the template a DAO could fork to write its evaluator. Other engineers built the Ceramic data model, settlement contracts, and application interface.
+
+## Let each DAO define its own calculation
+
+I separated the scoring function from the machinery that ran it. A DAO could edit one function returning rewards and a new trusted seed, then build its image on top of the shared runner.
+
+That boundary mattered. Changing a reward policy should not require rebuilding the job orchestration or learning the whole infrastructure stack. I moved the runner toward a single-execution model with one input file, and made previous rewards optional so the template was useful beyond the example calculation.
+
+## Make the output safe to hand over
+
+The runner checked the function's return shape and stopped with an explicit error when execution failed or returned invalid output. That catches broken integrations before they become an allocation file; it does not establish whether a DAO's scoring policy is fair.
+
+I then converted the allocation into an OpenZeppelin Merkle tree with address-and-amount leaves matching the settlement contract. The tree and reward files were concrete outputs of the job. The on-chain system could commit to one root while contributors claimed with their individual proofs.
+
+## Package the whole path
+
+I wrote the scripts to launch Bacalhau jobs, retrieve their results, and run against IPFS or HTTPS inputs. I also created the forkable template, its authoring documentation, and a recorded walkthrough, then used my own fork to demonstrate the customization flow.
+
+The complete system was demonstrated on Goerli, including settlement through a Safe and Zodiac Reality module. It remained a prototype. The result of my work was a reusable compute pipeline and a documented way for another developer to supply an evaluator and carry its output through to settlement.

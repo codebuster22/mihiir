@@ -1,0 +1,44 @@
+[
+  {
+    "id": "01-home",
+    "duration": 13,
+    "start": 0,
+    "title": "A personal home",
+    "proof": 6.5
+  },
+  {
+    "id": "02-work",
+    "duration": 6,
+    "start": 12.6,
+    "title": "Work, with context",
+    "proof": 15.6
+  },
+  {
+    "id": "03-mobile",
+    "duration": 7,
+    "start": 18.2,
+    "title": "A little closer",
+    "proof": 21.7
+  },
+  {
+    "id": "04-writing",
+    "duration": 8,
+    "start": 24.8,
+    "title": "Writing that shows its workings",
+    "proof": 28.8
+  },
+  {
+    "id": "05-footer",
+    "duration": 6,
+    "start": 32.4,
+    "title": "An invitation to talk",
+    "proof": 35.4
+  },
+  {
+    "id": "06-close",
+    "duration": 6,
+    "start": 38,
+    "title": "Mihiir.com",
+    "proof": 41
+  }
+]

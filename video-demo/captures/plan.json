@@ -1,0 +1,164 @@
+{
+  "baseUrl": "http://localhost:3002",
+  "output": "captures/ux",
+  "shots": [
+    {
+      "name": "home-desktop",
+      "route": "/",
+      "width": 1440,
+      "height": 960,
+      "duration": 13,
+      "fullPage": true,
+      "actions": [
+        {
+          "at": 3.9,
+          "type": "hover",
+          "selector": "button[aria-label='The story behind this photograph']"
+        },
+        {
+          "at": 4.7,
+          "type": "snapshot",
+          "label": "memory"
+        },
+        {
+          "at": 6.5,
+          "type": "leave"
+        },
+        {
+          "at": 7.1,
+          "type": "scroll",
+          "selector": "div[aria-label='Companies I have worked with']",
+          "block": "center"
+        },
+        {
+          "at": 8.8,
+          "type": "hover",
+          "selector": "div[aria-label='Companies I have worked with']"
+        },
+        {
+          "at": 10.2,
+          "type": "snapshot",
+          "label": "logos-paused"
+        },
+        {
+          "at": 11,
+          "type": "leave"
+        }
+      ]
+    },
+    {
+      "name": "antigravity",
+      "route": "/work/antigravity",
+      "width": 1440,
+      "height": 960,
+      "duration": 6,
+      "actions": [
+        {
+          "at": 3,
+          "type": "scroll",
+          "selector": "figure[aria-labelledby='game-state-title']",
+          "block": "center"
+        },
+        {
+          "at": 4.4,
+          "type": "snapshot",
+          "label": "architecture"
+        }
+      ]
+    },
+    {
+      "name": "home-mobile",
+      "route": "/",
+      "width": 390,
+      "height": 900,
+      "density": 1,
+      "mobile": true,
+      "duration": 7,
+      "actions": [
+        {
+          "at": 0.9,
+          "type": "click",
+          "selector": "button[aria-controls='site-menu']"
+        },
+        {
+          "at": 1.6,
+          "type": "snapshot",
+          "label": "menu"
+        },
+        {
+          "at": 2.6,
+          "type": "click",
+          "selector": "text=Close"
+        },
+        {
+          "at": 3.6,
+          "type": "click",
+          "selector": "button[aria-label='The story behind this photograph']"
+        },
+        {
+          "at": 4.5,
+          "type": "snapshot",
+          "label": "memory"
+        }
+      ]
+    },
+    {
+      "name": "writing",
+      "route": "/writing/technical/when-a-backup-order-book-can-take-over",
+      "width": 1440,
+      "height": 960,
+      "duration": 8,
+      "prepareScroll": "figure:has(figcaption)",
+      "actions": [
+        {
+          "at": 1.1,
+          "type": "click",
+          "selector": "text=Step through example"
+        },
+        {
+          "at": 2.8,
+          "type": "click",
+          "selector": "text=Next"
+        },
+        {
+          "at": 4.3,
+          "type": "click",
+          "selector": "text=Next"
+        },
+        {
+          "at": 5.2,
+          "type": "snapshot",
+          "label": "disagreement"
+        },
+        {
+          "at": 6.2,
+          "type": "click",
+          "selector": "text=Show all steps"
+        },
+        {
+          "at": 7.2,
+          "type": "leave"
+        }
+      ]
+    },
+    {
+      "name": "footer",
+      "route": "/",
+      "width": 1440,
+      "height": 960,
+      "duration": 6,
+      "prepareScroll": "footer",
+      "actions": [
+        {
+          "at": 2.2,
+          "type": "hover",
+          "selector": "footer a[data-analytics-event='booking_open_footer']"
+        },
+        {
+          "at": 4.1,
+          "type": "leave"
+        }
+      ]
+    }
+  ]
+}

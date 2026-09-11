@@ -1,0 +1,40 @@
+---
+draft: true
+title: "Bipzy: the contracts behind a token launch"
+summary: "I led smart-contract development across tiered presales, NFTs and staking, including the indexing needed to expose staking state to the app."
+role: "Lead smart-contract developer"
+topics:
+  - Web3
+  - Token launches
+  - Smart contracts
+relationship: "Client engagement through Chain Labs"
+projectStatus: "Contract work delivered during 2023–2024; current operation has not been reviewed."
+---
+
+## The problem
+
+Bipzy needed the contract layer for a token-launch and NFT product: a tiered presale, a collection and access pass, and a staking system.
+
+The presale had to support different allocation tiers and two ways of receiving tokens: immediate claims or vesting over time. Those rules needed to work alongside the rest of the launch rather than become separate, disconnected implementations.
+
+## What I owned
+
+I led smart-contract development through Chain Labs during an engagement spanning December 2023 to November 2024. My work covered the fundraising pools and factory, presale and tier logic, Bipzy and BipzyPass NFT contracts, and the staking contract.
+
+I also built the dedicated staking subgraph. It gave the application a way to query indexed staking state instead of expecting the contract alone to serve every interface need.
+
+Other engineers contributed to the contract repository, and a separate team built the frontend. I was responsible for the contract system and its staking index throughout this work.
+
+## Three decisions that mattered
+
+**Support the launch rules explicitly.** The fundraising architecture used a pool factory, with tier and presale logic factored into libraries. It supported vesting and immediate-claim variants, and the tests covered both variants along with adding supply. That made the different launch configurations concrete parts of the contract system.
+
+**Keep an upgrade path.** The fundraising module used an ERC1967 proxy. This allowed its implementation to change without requiring a fresh fundraising deployment for each revision. The proxy and pool logic were part of the same engineering scope, so upgradeability was addressed alongside the product’s launch rules.
+
+**Check whether the tests could catch mistakes.** The repository included Gambit mutation testing for the pool and NFT contracts, as well as Ethereum mainnet fork tests. Mutation testing deliberately changes code to check whether tests detect the difference. It provided another way to examine the test suite beyond whether the current implementation passed it.
+
+## What was delivered
+
+The completed scope brought together the presale engine, collection, access pass and staking system, with an index for the staking data the app needed.
+
+This work shows the range I can own within a product’s contract layer: translating launch rules into contract behavior, building the surrounding infrastructure, and carrying that work through testing while another team owns the customer-facing application.

@@ -1,0 +1,206 @@
+.highlights {
+  padding: 72px var(--gutter) 40px;
+}
+.sectionHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding-bottom: 32px;
+}
+.sectionHeading h2,
+.personal h2,
+.writing h2 {
+  font-size: 36px;
+  line-height: 42px;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+.highlight {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 760px);
+  gap: 64px;
+  padding: 40px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.highlight h3 {
+  font-size: 30px;
+  line-height: 37px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+.highlight h3 a,
+.featuredLog h3 a {
+  color: var(--ink);
+  text-decoration: none;
+}
+.highlight h3 a:hover,
+.featuredLog h3 a:hover {
+  color: var(--blue);
+}
+.highlight > div {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 24px;
+}
+.highlight p {
+  font-size: 20px;
+  line-height: 30px;
+}
+.about {
+  padding: 64px var(--gutter) 104px;
+}
+.personal {
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.personal > p {
+  font-size: 20px;
+  line-height: 31px;
+}
+.personal > .origin {
+  font-size: 26px;
+  line-height: 37px;
+}
+.personal > .since {
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--muted);
+}
+.continuations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+.writing {
+  display: grid;
+  grid-template-columns: 440px minmax(0, 1fr);
+  gap: 64px;
+  padding: 0 var(--gutter) 96px;
+}
+.writingIntro {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 24px;
+}
+.writingIntro p {
+  font-size: 18px;
+  line-height: 27px;
+}
+.featuredLog {
+  padding-left: 40px;
+  border-left: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 16px;
+}
+.featuredLog time {
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--muted);
+}
+.featuredLog h3 {
+  font-size: 30px;
+  line-height: 37px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+.featuredLog p {
+  font-size: 20px;
+  line-height: 30px;
+}
+@media (max-width: 1150px) {
+  .highlight {
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 40px;
+  }
+  .writing {
+    grid-template-columns: 35% minmax(0, 1fr);
+    gap: 40px;
+  }
+}
+@media (max-width: 760px) {
+  .highlights {
+    padding: 40px var(--gutter) 24px;
+  }
+  .sectionHeading {
+    align-items: start;
+    gap: 12px;
+    padding-bottom: 16px;
+  }
+  .sectionHeading h2,
+  .personal h2,
+  .writing h2 {
+    font-size: 28px;
+    line-height: 34px;
+  }
+  .sectionHeading > a {
+    font-size: 15px;
+    white-space: nowrap;
+  }
+  .highlight {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 32px 0;
+  }
+  .highlight h3 {
+    font-size: 25px;
+    line-height: 31px;
+  }
+  .highlight p {
+    font-size: 17px;
+    line-height: 25px;
+  }
+  .highlight > div {
+    gap: 20px;
+  }
+  .about {
+    padding: 48px var(--gutter) 72px;
+  }
+  .personal > .origin {
+    font-size: 21px;
+    line-height: 30px;
+  }
+  .personal > p {
+    font-size: 17px;
+    line-height: 25px;
+  }
+  .personal > .since {
+    font-size: 15px;
+    line-height: 24px;
+  }
+  .continuations {
+    flex-direction: column;
+    align-items: start;
+    gap: 0;
+  }
+  .writing {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 0 var(--gutter) 40px;
+  }
+  .writingIntro p {
+    font-size: 17px;
+    line-height: 25px;
+  }
+  .featuredLog {
+    border-left: 0;
+    padding-left: 0;
+    gap: 16px;
+  }
+  .featuredLog h3 {
+    font-size: 25px;
+    line-height: 31px;
+  }
+  .featuredLog p {
+    font-size: 17px;
+    line-height: 25px;
+  }
+}

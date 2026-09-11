@@ -1,0 +1,38 @@
+---
+draft: true
+title: "Toucan Protocol: a bridge for canonical carbon tokens"
+summary: "I led engineering for Toucan’s cross-chain carbon bridge, from the messenger contracts and transport migration to tests and deployment tooling."
+role: "Primary engineer, cross-chain bridge"
+topics:
+  - Web3
+  - Cross-chain systems
+  - Smart contracts
+relationship: "Freelance engagement with Toucan Protocol"
+projectStatus: "Delivered in 2022; production deployment followed my active engagement. Current operation has not been reviewed."
+---
+
+## The problem
+
+Toucan brings carbon credits on-chain and makes them available through pooled tokens such as BCT and NCT. Its bridge needed to move those tokens between Polygon and Celo while keeping a canonical token on each chain.
+
+That meant coordinating two transactions in different environments: burn tokens on the source chain, then mint the corresponding amount on the destination. The destination contract had to distinguish a new request from a message it had already processed.
+
+## What I owned
+
+I was the primary engineer for the cross-chain bridge subsystem. I authored the messenger contract, its storage contract and token interface, and added the router-controlled mint and burn hooks to the existing pool contracts.
+
+My scope also covered the test suite, deployment scripts, operations tasks, staging deployments and bridge documentation. I worked inside Toucan’s existing protocol and collaborated with its engineers through implementation and review.
+
+## Three decisions that mattered
+
+**Make each transfer identifiable.** I implemented a request registry and a hash that includes the sender, token, amount, destination and a global nonce. On receipt, the messenger checks that the request has not already been handled before minting. The nonce also keeps otherwise identical transfers distinct.
+
+**Keep the bridge behavior stable through a transport change.** During the build, I migrated the messenger from Optics to Abacus. That involved changing the underlying messaging integration, removing the old contracts and migrating the tests. The bridge’s external behavior stayed consistent while the infrastructure beneath it changed.
+
+**Treat deployment as part of the implementation.** A messenger contract needs the right remote routers, token mappings and connection managers. I wrote scripts and tasks to configure those relationships across networks and deployed the staging bridge to both testnets. We also refined pausing, upgradeability and storage layout through review.
+
+## What was delivered
+
+My work ran from March to July 2022. The resulting bridge included contracts, tests, operational tooling and documentation covering the path from a user’s transfer request to destination minting.
+
+A Toucan teammate completed the production deployment afterward, using the messenger contract I authored. My handover included the tools to configure the bridge across networks and documentation of how its messages and token transfers fit together.

@@ -1,0 +1,58 @@
+---
+draft: true
+title: "Titus Intelligence"
+summary: "Building the historical data layer for Polymarket: distributed indexing, protocol-aware enrichment and a way to check what the data actually means."
+role: "Product owner and architect"
+topics: ["Prediction markets", "Data infrastructure", "Indexing", "Distributed systems"]
+relationship: "My own prediction-market data product"
+projectStatus: "Backfill system built and operated; fresh-data certification in progress"
+evidenceStatus: "Repository reviewed on m3b-master, 10 September 2026. The 12B-event / 30-hour result is author-reported; stored-data scale separately inspected through read-only ClickHouse metadata."
+---
+
+A prediction-market trade is one part of a longer story. Before it, someone created a market and minted outcome tokens. After it, those tokens might be merged, converted or redeemed. Money can pass through several contracts along the way.
+
+To understand a wallet's history, you need those actions to add up.
+
+I’m building Titus Intelligence to make that history usable. It reads Polymarket’s on-chain activity on Polygon, connects each event to its market and economic meaning, and stores the result in ClickHouse for analysis. I own the product and architecture.
+
+## Make the data useful when it arrives
+
+The earlier pipeline moved through sharded PostgreSQL databases before a separate process transformed the data into ClickHouse. I rebuilt that path around a direct HyperSync client, custom decoders and a single analytical store.
+
+The workers enrich facts before writing them. A fill should arrive with its market, price, side and role already attached. The next system can work on order aggregation, inventory and PnL instead of repeating the same contract interpretation.
+
+That puts more responsibility into ingestion. It also gives the rest of the product a clearer foundation.
+
+## Divide the work without losing the dependencies
+
+The master takes a fixed chain head for each run and moves through a sequence: discover administrative events, derive token and market relationships, scan historical liquidity pools, then process the order-book exchange history.
+
+Each stage has its own worker fleet. The master plans and supervises; workers fetch, decode and write. Separating those jobs lets the system add ingestion capacity while keeping one place responsible for progress.
+
+The history is uneven. A block range from an early period can be cheap; an equally wide recent range can contain much more activity. Chunk sizes and progress measurements have to account for that density. Counting finished chunks alone gives a misleading picture of how much work remains.
+
+## Make interruptions ordinary
+
+A worker finishing a request is too early to record progress. Its transaction buffers and database inserts still need to finish.
+
+I made the durable write barrier the point at which a checkpoint can advance. Assignments carry ownership generations, so a worker that loses its claim cannot continue updating coordination state. A replacement resumes from durable progress.
+
+Rows also need identities that survive a retry. An ERC-1155 batch transfer, for example, contains several elements in one log. Each element gets its own identity; otherwise database deduplication can quietly discard its siblings.
+
+There is a similar problem with the token-to-market lookup. A master rebuild must not retire a generation that an active worker is still reading. New generations are allocated separately from publication, and old ones remain available while assignments depend on them.
+
+## Check the claim behind “complete”
+
+One of the more useful fixes came from a mismatch between configuration and deployment. A worker could record coverage using a newer subscription fingerprint even though its running image did not contain every subscription.
+
+The worker now checks the actual set it can fetch against the set its assignment claims. It refuses the job before it can write misleading coverage.
+
+The protocol checks go further. Different contract versions, collateral eras and token decimal rules can change what a transfer means. A pipeline can successfully store a row while attributing it to the wrong flow. The validator compares supplies, transfers, market bindings and economic movements, and fixes are exercised on real block windows.
+
+## Scale, and the next milestone
+
+I reported a run of roughly **12 billion events in 30 hours**. That timing remains an author-reported result. The repository separately documents a 12.77-billion-log workload across selected event families; source logs, enriched fact rows and physical database rows are different measurements.
+
+The backfill system has been built and operated. Validation of the initial dataset exposed gaps that require a fresh ingest, so the current work is to prove those fixes, rebuild the dataset and certify it before opening the live data layer and API.
+
+The value of this project is in both parts: moving a large history through the system, and being able to explain why the resulting facts can be trusted.

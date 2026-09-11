@@ -1,0 +1,14 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"></head><body><template><style>
+@font-face{font-family:Plex;src:url('assets/fonts/plex-sans-400.ttf');font-weight:400;font-display:block}
+@font-face{font-family:Plex;src:url('assets/fonts/plex-sans-500.ttf');font-weight:500;font-display:block}
+@font-face{font-family:Plex;src:url('assets/fonts/plex-sans-600.ttf');font-weight:600;font-display:block}
+*{box-sizing:border-box} .stage{position:absolute;inset:0;perspective:1800px;perspective-origin:50% 48%}
+.pose{position:absolute;transform-style:preserve-3d;will-change:transform}
+.edge{position:absolute;inset:0;background:#DFE4E8;transform:translateZ(-12px) translate(5px,5px);border-radius:16px;border:1px solid #CCD4DB}
+.face{position:absolute;inset:0;background:#FFFFFF;border:1px solid #DCE2E7;border-radius:14px;overflow:hidden;box-shadow:0 30px 80px #20232616,0 7px 18px #2023260B;backface-visibility:hidden}
+.face video,.face img{display:block;width:100%;height:100%;object-fit:cover}
+.eyebrow{position:absolute;left:92px;top:43px;font:400 22px/30px Plex,sans-serif;color:#596168;letter-spacing:.01em}
+.heading{position:absolute;font:500 74px/1.04 Plex,sans-serif;letter-spacing:-.045em;color:#202326}
+.body{position:absolute;font:400 28px/1.4 Plex,sans-serif;color:#596168}
+.blue{color:#255BD6}
+#frame-05-footer-root{position:absolute;inset:0;width:1920px;height:1080px;font-family:Plex,sans-serif;color:#202326;background:#FFFFFF;overflow:hidden}</style><div data-hf-id="hf-w2mg" id="frame-05-footer-root" data-composition-id="05-footer" data-width="1920" data-height="1080" data-duration="6"><div data-hf-id="hf-bwj6" class="eyebrow">An invitation to talk.</div><div data-hf-id="hf-tan6" class="stage"><div data-hf-id="hf-0x4z" class="pose" id="footer-plane" style="left:300px;top:104px;width:1320px;height:880px"><div data-hf-id="hf-jt62" class="edge" aria-hidden="true"></div><div data-hf-id="hf-ce6r" class="face"><video data-hf-id="hf-wwpr" id="footer-video" class="clip" src="assets/footer.mp4" data-start="0" data-duration="6" data-track-index="1" muted playsinline preload="auto"></video></div></div></div></div><script>const tl=gsap.timeline({paused:true});tl.fromTo('#footer-plane',{rotationY:10,rotationX:6,z:-140,y:20},{rotationY:0,rotationX:0,z:0,y:0,duration:1.6,ease:'power2.inOut'},0);tl.to('#footer-plane',{z:24,duration:2,ease:'power1.inOut'},3);tl.fromTo('.eyebrow',{opacity:0},{opacity:1,duration:.15,ease:'none'},.35);tl.to('.eyebrow',{opacity:0,duration:.15,ease:'none'},5.6);window.__timelines["05-footer"]=tl;</script></template></body></html>

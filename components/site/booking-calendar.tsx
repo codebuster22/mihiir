@@ -187,9 +187,9 @@ export function BookingCalendar() {
         />
       </div>
       <p className={styles.alternative}>
-        <a href={site.booking} data-analytics-event="booking_open_footer">
-          Open booking in a separate page
-        </a>
+        <BookingLink placement="footer" className="">
+          Open booking in a new tab
+        </BookingLink>
       </p>
       <noscript>
         <p className={styles.noScript}>

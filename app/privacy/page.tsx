@@ -75,18 +75,12 @@ export default function PrivacyPage() {
 
           <h2>Links to other services</h2>
           <p>
-            The homepage booking calendar loads from Cal.com as you approach the
-            footer. Cal.com handles the availability and booking details you
-            enter there. You can also open the booking page separately. Links to
-            Chain Labs and social profiles take you to separate sites. These
-            services apply their own privacy practices.
-          </p>
-
-          <h2>The image playground</h2>
-          <p>
-            The design playground can save your chosen image-filter settings in
-            this browser. Those saved looks stay in local browser storage; they
-            are not sent to an analytics event.
+            The homepage booking calendar starts loading from Cal.com shortly
+            after the page opens. Cal.com handles the availability and booking
+            details you enter there. Booking links open in a new tab without
+            sending this site&apos;s address as a referrer. Links to Chain Labs
+            and social profiles take you to separate sites. These services apply
+            their own privacy practices.
           </p>
         </article>
       </main>

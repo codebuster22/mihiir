@@ -13,10 +13,14 @@ export function BookingLink({
   return (
     <a
       href={site.booking}
+      target="_blank"
+      rel="noopener noreferrer"
+      referrerPolicy="no-referrer"
       className={className}
       data-analytics-event={`booking_open_${placement}`}
     >
       {children ?? 'Book a project conversation'}
+      <span className="sr-only"> (opens in a new tab)</span>
     </a>
   );
 }

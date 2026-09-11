@@ -196,7 +196,10 @@
     line-height: 27px;
   }
   .copy {
-    width: 80%;
+    width: calc(100% - 300px);
+  }
+  .bodyGroup::before {
+    inset-inline: -32px -16px;
   }
   .noteSpace {
     right: 24px;

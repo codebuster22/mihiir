@@ -15,7 +15,7 @@ The approved Paper direction is implemented in the working Next.js site. The 44-
 
 - Production builds passed in public and review modes.
 - 35 HTTP route/export checks passed in each mode, alongside redirects and image endpoints. Missing pages recover through the custom 404.
-- Lint, TypeScript and all 13 consent/discovery tests pass, including checks against the installed Clarity SDK.
+- Lint, TypeScript and all 15 consent/discovery/booking tests pass, including checks against the installed Clarity SDK.
 - 25 automated accessibility audits reported no violations. Keyboard, touch, focus recovery and reduced motion were also checked; this does not replace testing with real assistive technology.
 - Layouts reviewed between 320 and 1440 pixels. Header/footer alignment also accommodates wider screens through a shared maximum width.
 - Controlled mobile laboratory LCP improved from 9.648 to 3.820 seconds, with CLS 0 and 70.8% less initial transferred data. These are local throttled observations, not field Core Web Vitals.
@@ -24,6 +24,6 @@ The approved Paper direction is implemented in the working Next.js site. The 44-
 
 ## Before public launch
 
-The site is not deployed. All eleven cases and both local writing entries retain their draft flags for review. Choose the entries to publish, fill the five social URL environment variables listed in `.env.example`, create the mihiir.com Clarity project and add its public ID, then follow the Vercel environment settings in the root README. Booking and Chain Labs destinations are configurable there too. Verify analytics events against the real Clarity dashboard after deployment.
+Mihiir has deployed the GitHub-linked site on Vercel. All eleven cases and both local writing entries retain their draft flags for review. Choose the entries to publish before disabling content preview. Social, booking, Chain Labs and Clarity configuration uses the variables in `.env.example`; verify analytics events against the real Clarity dashboard once enabled. The 11 September responsive revision and inline booking calendar are documented in `RESPONSIVE-AUDIT.md`.
 
 No testimonials or unsupported headline metrics were invented. The booking destination is the verified Cal.com page; its outbound click measures intent rather than a completed booking.

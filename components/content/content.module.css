@@ -212,6 +212,9 @@
   flex-shrink: 0;
   position: sticky;
   top: 40px;
+  max-height: calc(100dvh - 80px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   font-size: 15px;
   line-height: 23px;
 }

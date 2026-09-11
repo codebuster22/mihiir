@@ -2,14 +2,8 @@
 /* oxlint-disable jsx-a11y/no-noninteractive-tabindex -- Focus pauses this named, horizontally scrollable region. */
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { companyLogos } from '@/lib/company-logos';
 import styles from './logo-strip.module.css';
-const logos = [
-  { name: 'Curve Labs', file: 'curve-labs.png', width: 52 },
-  { name: 'Movement Labs', file: 'movement-labs.svg', width: 184 },
-  { name: 'Toucan', file: 'toucan-earth.png', width: 150 },
-  { name: 'Antigravity', file: 'antigravity.svg', width: 48 },
-  { name: 'Bipzy', file: 'bipzy.svg', width: 180 },
-];
 export function LogoStrip() {
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(true);
@@ -36,20 +30,18 @@ export function LogoStrip() {
             key={copy}
             aria-hidden={copy === 1 ? true : undefined}
           >
-            {logos.map((logo) => (
-              <div key={logo.name} className={styles.slot}>
+            {companyLogos.map((logo) => (
+              <div key={logo.name} className={styles.slot} title={logo.name}>
                 <Image
                   src={`/brands/${logo.file}`}
                   alt={copy === 0 ? logo.name : ''}
                   width={logo.width}
-                  height={48}
+                  height={logo.height}
                   style={{
-                    width: logo.width,
-                    filter:
-                      logo.name === 'Antigravity' ? 'none' : 'brightness(0)',
+                    width: logo.displayWidth,
+                    filter: logo.tonal ? 'grayscale(1)' : 'brightness(0)',
                   }}
                   unoptimized
-                  loading="eager"
                 />
               </div>
             ))}

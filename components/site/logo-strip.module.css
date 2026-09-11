@@ -16,25 +16,29 @@
 .track {
   display: flex;
   width: max-content;
-  animation: logoTravel 52s linear infinite;
+  animation: logoTravel 112s linear infinite;
   will-change: transform;
 }
 .set {
   display: flex;
-  gap: 26px;
-  padding-right: 26px;
+  gap: 32px;
+  padding-right: 32px;
   flex-shrink: 0;
+  /* Each half must cover an ultrawide viewport for a gapless loop. */
+  min-width: 100vw;
+  justify-content: space-around;
 }
 .slot {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 208px;
+  width: 224px;
   height: 64px;
   flex-shrink: 0;
 }
 .slot img {
-  height: 48px;
+  height: auto;
+  max-height: 56px;
   object-fit: contain;
   max-width: 90%;
 }
@@ -60,10 +64,7 @@
     padding-right: 28px;
   }
   .slot img {
-    height: 44px;
-  }
-  .track {
-    animation-duration: 41s;
+    max-height: 48px;
   }
 }
 @media (prefers-reduced-motion: reduce), (hover: none) {
@@ -83,5 +84,6 @@
   }
   .set {
     padding-right: 0;
+    min-width: 0;
   }
 }

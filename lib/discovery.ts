@@ -105,7 +105,7 @@ const corePages: CorePage[] = [
       'Optional Clarity analytics, browser preferences and links to other services.',
     paragraphs: [
       'You can read this site without allowing analytics. Microsoft Clarity, when configured on the production site, loads only after explicit acceptance. Analytics storage is optional and advertising storage remains denied.',
-      'Analytics preferences in the footer can change the choice when analytics is available. Withdrawing permission reloads the page without Clarity. Booking a conversation opens an external booking service, where that service’s privacy practices apply.',
+      'Analytics preferences in the footer can change the choice when analytics is available. Withdrawing permission reloads the page without Clarity. The homepage calendar loads from Cal.com as you approach the footer; Cal.com handles its availability and booking details under its own privacy practices. The booking page can also be opened separately.',
     ],
   },
 ];

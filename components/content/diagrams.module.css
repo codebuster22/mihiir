@@ -6,6 +6,7 @@
   padding: 32px;
 }
 .gameFigure {
+  container: game-flow / inline-size;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -234,11 +235,7 @@
   white-space: nowrap;
   border: 0;
 }
-@media (max-width: 700px) {
-  .gameFigure,
-  .continuity {
-    padding: 24px;
-  }
+@container game-flow (max-width: 580px) {
   .gameFlow {
     flex-direction: column;
     gap: 32px;
@@ -264,6 +261,12 @@
   .gameNode span {
     flex-basis: 100%;
     padding-left: 48px;
+  }
+}
+@media (max-width: 700px) {
+  .gameFigure,
+  .continuity {
+    padding: 24px;
   }
   .continuity figcaption {
     font-size: 23px;

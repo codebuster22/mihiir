@@ -141,6 +141,7 @@ body {
   --rule: #dce2e7;
   --sky: #f0f4f7;
   --gutter: clamp(24px, 6.666667vw, 96px);
+  --page-width: 1760px;
   --foreground: #202326;
   --background: #fff;
   --primary: #255bd6;
@@ -195,7 +196,7 @@ svg {
 }
 .page-shell {
   width: 100%;
-  max-width: 1440px;
+  max-width: var(--page-width);
   margin-inline: auto;
 }
 .button {

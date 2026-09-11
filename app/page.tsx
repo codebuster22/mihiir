@@ -49,13 +49,13 @@ export default function Home() {
     (entry) => entry.path === '/writing/log/sales-engineer-log-2',
   );
   return (
-    <div className="page-shell">
+    <div>
       <main>
         <HomeHero />
         <LogoStrip />
         {highlights.length > 0 && (
           <section
-            className={styles.highlights}
+            className={`page-shell ${styles.highlights}`}
             aria-labelledby="recent-highlights"
           >
             <div className={styles.sectionHeading}>
@@ -83,7 +83,10 @@ export default function Home() {
             ))}
           </section>
         )}
-        <section className={styles.about} aria-labelledby="little-about">
+        <section
+          className={`page-shell ${styles.about}`}
+          aria-labelledby="little-about"
+        >
           <div className={styles.personal}>
             <h2 id="little-about">A little about me</h2>
             <p className={styles.origin}>
@@ -111,7 +114,10 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className={styles.writing} aria-labelledby="home-writing">
+        <section
+          className={`page-shell ${styles.writing}`}
+          aria-labelledby="home-writing"
+        >
           <div className={styles.writingIntro}>
             <h2 id="home-writing">Writing</h2>
             <p>

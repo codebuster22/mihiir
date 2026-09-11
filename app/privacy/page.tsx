@@ -75,9 +75,11 @@ export default function PrivacyPage() {
 
           <h2>Links to other services</h2>
           <p>
-            Booking a conversation opens an external booking service. Links to
-            Chain Labs and social profiles also take you to separate sites.
-            Their own privacy practices apply once you visit them.
+            The homepage booking calendar loads from Cal.com as you approach the
+            footer. Cal.com handles the availability and booking details you
+            enter there. You can also open the booking page separately. Links to
+            Chain Labs and social profiles take you to separate sites. These
+            services apply their own privacy practices.
           </p>
 
           <h2>The image playground</h2>

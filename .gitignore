@@ -54,6 +54,7 @@ next-env.d.ts
 !/docs/AUTHORING.md
 !/docs/ANALYTICS.md
 !/docs/BUILD-STATUS.md
+!/docs/RESPONSIVE-AUDIT.md
 !/docs/design/
 /docs/design/*
 !/docs/design/chosen-mountaineering-print.png
@@ -61,6 +62,7 @@ next-env.d.ts
 !/docs/design/chosen-panorama-print.png
 !/docs/design/brands/
 /docs/design/brands/source-inventory.json
+/docs/design/brands/inventory-*.png
 
 # Keep demo source and prepared media; regenerate captures and review exports.
 /video-demo/.media/

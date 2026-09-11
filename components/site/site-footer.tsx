@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { footerNavigation, socials } from '@/lib/site';
-import { BookingLink } from './booking-link';
+import { BookingCalendar } from './booking-calendar';
 import { AnalyticsPreferences } from '@/components/analytics/consent';
 import styles from './site-footer.module.css';
 export function SiteFooter({ landscape = false }: { landscape?: boolean }) {
@@ -11,8 +11,16 @@ export function SiteFooter({ landscape = false }: { landscape?: boolean }) {
       {landscape && (
         <>
           <picture className={styles.panorama}>
-            <source type="image/avif" srcSet="/artwork/panorama-print-q85.avif" />
-            <img src="/artwork/panorama-print.webp" alt="" loading="lazy" decoding="async" />
+            <source
+              type="image/avif"
+              srcSet="/artwork/panorama-print-q85.avif"
+            />
+            <img
+              src="/artwork/panorama-print.webp"
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
           </picture>
           <div className={styles.fade} aria-hidden="true" />
         </>
@@ -31,9 +39,9 @@ export function SiteFooter({ landscape = false }: { landscape?: boolean }) {
               In a 30-minute call, we&apos;ll talk through what you&apos;re
               building, where you need help and the part I could take on.
             </p>
-            <BookingLink placement="footer" />
           </section>
         )}
+        {landscape && <BookingCalendar />}
         <div className={styles.navigation}>
           <div className={styles.siteGroup}>
             <Link href="/" className={styles.wordmark}>

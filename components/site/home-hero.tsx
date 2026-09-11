@@ -57,20 +57,33 @@ export function HomeHero() {
 
   useEffect(() => {
     const target = hero.current;
-    if (!target) return;
+    const image = photo.current;
+    if (!target || !image) return;
     const update = () => {
-      const width = target.getBoundingClientRect().width;
+      const heroRect = target.getBoundingClientRect();
+      const imageRect = image.getBoundingClientRect();
       const mobile = window.matchMedia('(max-width: 760px)').matches;
-      const height = mobile ? 850 : target.getBoundingClientRect().height;
       const source = mobile
         ? { w: 1122, h: 1402, x: 878, y: 843, bw: 72, bh: 118 }
         : { w: 1956, h: 1227, x: 1516, y: 762, bw: 136, bh: 196 };
-      const scale = Math.max(width / source.w, height / source.h);
-      const x = (width - source.w * scale) * 0.8 + source.x * scale;
+      const scale = Math.max(
+        imageRect.width / source.w,
+        imageRect.height / source.h,
+      );
+      const [positionX, positionY] = getComputedStyle(image)
+        .objectPosition.split(' ')
+        .map((value) => parseFloat(value) / 100);
+      // Follow the rendered crop instead of assuming an artboard's dimensions.
+      const x =
+        imageRect.left -
+        heroRect.left +
+        (imageRect.width - source.w * scale) * positionX +
+        source.x * scale;
       const y =
-        (height - source.h * scale) * 0.5 +
-        source.y * scale -
-        (mobile ? 180 : 0);
+        imageRect.top -
+        heroRect.top +
+        (imageRect.height - source.h * scale) * positionY +
+        source.y * scale;
       setBounds({
         left: x - 8,
         top: y - 8,
@@ -80,9 +93,12 @@ export function HomeHero() {
     };
     const observer = new ResizeObserver(update);
     observer.observe(target);
+    observer.observe(image);
+    image.addEventListener('load', update);
     update();
     return () => {
       observer.disconnect();
+      image.removeEventListener('load', update);
       if (timer.current) clearTimeout(timer.current);
     };
   }, []);
@@ -149,12 +165,19 @@ export function HomeHero() {
     >
       <div className={styles.photoFrame}>
         <picture>
-          <source media="(max-width: 760px)" type="image/avif" srcSet="/artwork/mountaineering-mobile-print-q85.avif" />
+          <source
+            media="(max-width: 760px)"
+            type="image/avif"
+            srcSet="/artwork/mountaineering-mobile-print-q85.avif"
+          />
           <source
             media="(max-width: 760px)"
             srcSet="/artwork/mountaineering-mobile-print.webp"
           />
-          <source type="image/avif" srcSet="/artwork/mountaineering-print-q85.avif" />
+          <source
+            type="image/avif"
+            srcSet="/artwork/mountaineering-print-q85.avif"
+          />
           <img
             ref={photo}
             src="/artwork/mountaineering-print.webp"

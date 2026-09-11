@@ -1,7 +1,14 @@
 .hero {
   position: relative;
-  min-height: 680px;
-  height: min(62.708333vw, 903px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: max(680px, 100svh);
+  padding-block: 128px 112px;
+  padding-inline: max(
+    var(--gutter),
+    calc((100% - var(--page-width)) / 2 + var(--gutter))
+  );
   isolation: isolate;
   background: white;
 }
@@ -33,12 +40,9 @@
   );
 }
 .copy {
-  position: absolute;
-  left: var(--gutter);
-  top: 50%;
-  transform: translateY(-50%);
-  width: 65.277778%;
-  max-width: 940px;
+  position: relative;
+  width: 75.3%;
+  max-width: 1060px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -46,7 +50,7 @@
 }
 .copy h1 {
   position: relative;
-  font-size: clamp(40px, 3.888889vw, 56px);
+  font-size: clamp(40px, 3.888889vw, 72px);
   line-height: 1.07143;
   font-weight: 500;
   letter-spacing: -0.045em;
@@ -106,7 +110,7 @@
 }
 .pill {
   position: absolute;
-  right: 24px;
+  right: max(24px, calc((100% - var(--page-width)) / 2 + var(--gutter)));
   bottom: 24px;
   z-index: 5;
   display: flex;
@@ -142,10 +146,10 @@
 }
 .noteSpace {
   position: absolute;
-  right: 40px;
+  right: max(24px, calc((100% - var(--page-width)) / 2 + var(--gutter)));
   top: 40.3%;
   width: 320px;
-  max-width: 30%;
+  max-width: 36%;
   z-index: 10;
 }
 .note {
@@ -190,7 +194,7 @@
     line-height: 27px;
   }
   .copy {
-    width: 65%;
+    width: 80%;
   }
   .noteSpace {
     right: 24px;
@@ -207,27 +211,28 @@
   .hero {
     display: flex;
     flex-direction: column;
-    height: auto;
-    min-height: 850px;
+    justify-content: flex-end;
+    min-height: 100svh;
+    padding: 0;
     overflow: clip;
   }
   .photoFrame {
-    height: 850px;
+    height: clamp(440px, 65svh, 680px);
     bottom: auto;
   }
   .photo {
-    height: 850px;
-    top: -180px;
+    height: 100%;
+    top: 0;
+    object-position: 80% 75%;
   }
   .photoFade {
     height: 160px;
-    top: 510px;
-    bottom: auto;
+    bottom: 0;
   }
   .mobileSpacer {
     display: block;
-    height: 420px;
-    flex-shrink: 0;
+    min-height: clamp(340px, 48svh, 540px);
+    flex: 1;
   }
   .copy {
     position: relative;
@@ -300,6 +305,14 @@
   }
   .mobileClose {
     display: inline;
+  }
+}
+@media (min-width: 761px) and (min-aspect-ratio: 23/10) {
+  .photo {
+    object-position: 80% 72%;
+  }
+  .photoFade {
+    height: 120px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

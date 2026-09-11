@@ -58,6 +58,10 @@ The original Plex fonts are delivered as WOFF2. Their glyphs and measured text g
 
 The hero photo reveals its note on pointer hover, keyboard focus or a tap on the altitude pill. Escape, outside click and its Close control dismiss it. Mobile text stays low in the hero. The logo strip pauses on hover, focus and when offscreen; touch and reduced-motion visitors get a static, horizontally browsable strip. The mobile menu uses a native modal dialog. Technical writing includes a keyboard-accessible guided diagram with a complete static reading state.
 
+Home's hero and landscape footer span the full viewport width. The hero fills at least the viewport height and can grow to accommodate content on small or short screens. Reading sections use their own centered containers rather than constraining the photographs. All twelve companies from the Chain Labs source are registered in `lib/company-logos.ts`.
+
+The footer's official Cal.com embed loads only near the viewport, using `NEXT_PUBLIC_BOOKING_URL`; no additional environment variables or API key are required. A non-Cal booking URL uses the external CTA instead. Calendar failures and disabled JavaScript retain a direct booking link. [Responsive audit](docs/RESPONSIVE-AUDIT.md) covers the desktop/mobile matrix and these interactions.
+
 ## Website demo
 
 `video-demo/` is a separate HyperFrames project. Its 1080p demo uses recordings of the actual website, local Plex fonts and 3D camera movement. See its README for playback and re-rendering. Website builds do not require the video dependencies.
